@@ -16,13 +16,16 @@ const TeamSection = ({ title, members, delayBase = 0 }) => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 {members.map((member, i) => (
-                    <motion.div 
+                    <motion.a
                         key={i}
+                        href={member.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: delayBase + i * 0.1 }}
-                        className="group relative bg-brand-red/5 border border-brand-red/20 rounded-2xl overflow-hidden hover:border-brand-orange/40 transition-colors"
+                        className="group relative bg-brand-red/5 border border-brand-red/20 rounded-2xl overflow-hidden hover:border-brand-orange/40 transition-colors cursor-pointer block"
                     >
                         {/* Image Placeholder */}
                         <div className="aspect-[4/5] bg-gradient-to-b from-[#331019] to-black relative overflow-hidden">
@@ -46,16 +49,11 @@ const TeamSection = ({ title, members, delayBase = 0 }) => {
                             <p className="text-sm text-brand-orange font-mono mt-1">{member.role}</p>
                         </div>
 
-                        {/* LinkedIn Link (Top Right) */}
-                        <a 
-                            href={member.linkedin}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="absolute top-4 right-4 p-2 bg-black/50 backdrop-blur-md rounded-full text-white/70 hover:text-white hover:bg-brand-red transition-all transform hover:scale-110"
-                        >
+                        {/* LinkedIn Icon (Top Right) */}
+                        <div className="absolute top-4 right-4 p-2 bg-black/50 backdrop-blur-md rounded-full text-white/70 group-hover:text-white group-hover:bg-brand-red transition-all transform group-hover:scale-110">
                             <Linkedin size={20} />
-                        </a>
-                    </motion.div>
+                        </div>
+                    </motion.a>
                 ))}
             </div>
         </div>
