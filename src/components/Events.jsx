@@ -127,13 +127,16 @@ const GlitchText = ({ text, className }) => {
 
 const EventCard = ({ event, index, onRegister }) => {
   const isEven = index % 2 === 0;
+  const [isInView, setIsInView] = useState(false);
   
   return (
     <motion.div
       initial={{ opacity: 0, x: isEven ? -50 : 50, y: 20 }}
       whileInView={{ opacity: 1, x: 0, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.7, delay: index * 0.1 }}
+      onViewportEnter={() => setIsInView(true)}
+      onViewportLeave={() => setIsInView(false)}
+      viewport={{ margin: "-200px" }}
+      transition={{ duration: 0.4, delay: index * 0.1 }}
       className={`flex flex-col md:flex-row items-center gap-8 md:gap-16 w-full ${
         isEven ? "md:flex-row-reverse" : ""
       }`}
@@ -151,13 +154,12 @@ const EventCard = ({ event, index, onRegister }) => {
           <div className="absolute top-0 left-0 w-8 h-8 border-t border-l border-brand-orange/50 z-20" />
           <div className="absolute bottom-0 right-0 w-8 h-8 border-b border-r border-brand-orange/50 z-20" />
           
-          <div className="aspect-video overflow-hidden">
+          <div className="aspect-video overflow-hidden border-2 border-transparent group-hover:border-brand-orange transition-all duration-300">
             <img 
               src={event.image} 
               alt={event.title} 
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:grayscale-[0.5]"
+              className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
           </div>
 
         </div>
@@ -166,8 +168,10 @@ const EventCard = ({ event, index, onRegister }) => {
       {/* Center Node (Desktop) */}
       <div className="hidden md:flex flex-col items-center justify-center w-2/12 relative h-full min-h-[100px]">
          {/* The Node Dot */}
-         <div className="w-4 h-4 rounded-full bg-black border-2 border-brand-orange relative z-10 shadow-[0_0_15px_#ff6600]">
-            <div className="absolute inset-0 bg-brand-orange animate-ping opacity-20" />
+         <div className={`w-4 h-4 rounded-full border-2 border-brand-orange relative z-10 transition-all duration-500 ${
+           isInView ? 'bg-brand-orange scale-125 shadow-[0_0_20px_#ff6600,0_0_40px_#ff6600]' : 'bg-black shadow-none'
+         }`}>
+            {isInView && <div className="absolute inset-0 rounded-full bg-brand-orange animate-ping opacity-40" />}
          </div>
          {/* Connecting Line from Dot to Content */}
          <div className={`absolute top-1/2 h-[1px] bg-brand-orange/30 w-full z-0 ${isEven ? 'right-1/2 origin-right' : 'left-1/2 origin-left'}`} />
@@ -199,7 +203,7 @@ const EventCard = ({ event, index, onRegister }) => {
                 onClick={onRegister}
                 className="group inline-flex items-center gap-2 px-6 py-2 bg-white/5 border border-white/10 hover:border-brand-orange hover:bg-brand-orange/10 transition-all duration-300 rounded font-mono text-xs tracking-widest uppercase mt-2"
             >
-                <span>Initialize</span>
+                <span>Register</span>
                 <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform text-brand-orange" />
             </button>
         </div>
@@ -241,10 +245,10 @@ export default function Events() {
                 transition={{ duration: 0.8 }}
             >
                 <h1 className="text-5xl md:text-8xl font-black font-pixel text-transparent bg-clip-text bg-gradient-to-b from-white to-white/10 mb-6">
-                    MIND_MAP
+                    EVENT TIMELINE
                 </h1>
                 <p className="text-white/50 font-mono tracking-widest text-sm md:text-base max-w-xl mx-auto">
-                    // TRAVERSING THE NEURAL NETWORK OF EVENTS
+                    // Cool Line about events..(TBD)
                 </p>
             </motion.div>
         </div>
@@ -276,7 +280,7 @@ export default function Events() {
             <div className="relative mt-24 flex justify-center">
                  <div className="bg-black/80 backdrop-blur border border-white/20 px-8 py-4 rounded-full font-mono text-xs tracking-[0.3em] flex items-center gap-3">
                     <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
-                    END_OF_LINE
+                    <b>Register Now!</b>
                  </div>
             </div>
 

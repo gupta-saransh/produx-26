@@ -86,7 +86,7 @@ export default function ContactPage() {
                 </div>
 
                 {/* Map */}
-                <div className="w-full h-80 md:h-96 rounded-3xl overflow-hidden border border-brand-red/20 shadow-2xl shadow-brand-red/10 grayscale hover:grayscale-0 transition-all duration-500">
+                <div className="w-full h-80 md:h-96 rounded-3xl overflow-hidden border border-brand-red/20 shadow-2xl shadow-brand-red/10">
                     <iframe 
                         src="https://maps.google.com/maps?q=25.61557266074214,91.95492836984748&z=15&output=embed" 
                         width="100%" 

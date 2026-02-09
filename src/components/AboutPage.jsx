@@ -5,7 +5,6 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen pt-20 px-6 md:px-12 bg-[#0a0a0a] text-white overflow-hidden relative">
       <StarBackground />
-      <div className="absolute inset-0 bg-gradient-to-b from-brand-red/10 to-transparent pointer-events-none"></div>
       
       <div className="max-w-7xl mx-auto py-20">
         <motion.h1 
