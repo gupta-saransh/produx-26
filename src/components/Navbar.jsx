@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 import { Rocket } from 'lucide-react';
@@ -7,8 +7,18 @@ import RegisterModal from './RegisterModal';
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
   const isHomePage = location.pathname === '/';
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const menuItems = [
     { label: 'HOME', href: '/' },
@@ -50,8 +60,8 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 w-full z-50 px-6 md:px-12 py-4">
-        <div className="flex items-center justify-between border border-white/10 rounded-full px-6 py-3 backdrop-blur-sm bg-black/20">
+      <nav className="fixed top-0 left-0 w-full z-50 px-6 md:px-12 transition-all duration-300" style={{ paddingTop: isScrolled ? '0.75rem' : '1rem', paddingBottom: isScrolled ? '0.75rem' : '1rem' }}>
+        <div className="flex items-center justify-between border border-white/10 rounded-full backdrop-blur-sm bg-black/20 transition-all duration-300" style={{ paddingLeft: isScrolled ? '1.2rem' : '1.5rem', paddingRight: isScrolled ? '1.2rem' : '1.5rem', paddingTop: isScrolled ? '0.6rem' : '0.75rem', paddingBottom: isScrolled ? '0.6rem' : '0.75rem' }}>
           {/* Logo */}
           <Link
             to="/"
@@ -63,13 +73,13 @@ export default function Navbar() {
               transition={{ duration: 0.6 }}
               className="flex items-center gap-4"
             >
-               <div className="bg-white rounded-full flex items-center justify-center p-1 w-12 h-12 md:w-14 md:h-14 overflow-hidden">
+               <div className={`rounded-full flex items-center justify-center p-1 overflow-hidden transition-all duration-300 ${isScrolled ? 'w-12 h-12 md:w-16 md:h-16' : 'w-16 h-16 md:w-20 md:h-20'}`}>
                   <img src="/logo/IIMS_Logo.png" alt="IIM Shillong" className="h-full w-full object-contain" />
                </div>
                <div className="w-[1px] h-6 bg-white/30"></div>
                <div className="flex items-center gap-2">
-                  <img src="/logo/produx_logo.svg" alt="ProdUX" className="h-8 md:h-10 w-auto object-contain" />
-                  <span className="font-bold text-lg md:text-xl tracking-wide">ProdUX'26</span>
+                  <img src="/logo/produx_logo.svg" alt="ProdUX" className={`w-auto object-contain transition-all duration-300 ${isScrolled ? 'h-8 md:h-10' : 'h-10 md:h-12'}`} />
+                  <span className={`font-bold tracking-wide transition-all duration-300 ${isScrolled ? 'text-base md:text-lg' : 'text-xl md:text-2xl'}`}>ProdUX'26</span>
                </div>
             </motion.div>
           </Link>
@@ -85,7 +95,7 @@ export default function Navbar() {
               <Link
                 key={item.label}
                 to={item.href}
-                className="text-base font-medium text-white/70 hover:text-black transition-all px-4 py-2 rounded-full hover:bg-white"
+                className={`font-medium text-white/70 hover:text-black transition-all rounded-full hover:bg-white ${isScrolled ? 'text-base px-3 py-1.5' : 'text-lg px-4 py-2'}`}
               >
                 {item.label}
               </Link>
@@ -95,7 +105,7 @@ export default function Navbar() {
           {/* CTA Button */}
           <motion.button
             onClick={() => setIsRegisterOpen(true)}
-            className="hidden lg:flex items-center gap-2 px-6 py-2.5 border border-brand-orange text-white bg-transparent rounded-full font-bold tracking-[0.2em] uppercase hover:bg-brand-orange hover:text-black transition-all transform hover:scale-105 group relative"
+            className={`hidden lg:flex items-center gap-2 bg-brand-orange text-white rounded-full font-bold tracking-[0.2em] uppercase shadow-[0_0_20px_rgba(255,102,0,0.5)] hover:shadow-[0_0_35px_rgba(255,102,0,0.9)] transition-all transform hover:scale-105 group relative ${isScrolled ? 'px-5 py-2 text-xs' : 'px-6 py-2.5 text-sm'}`}
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}

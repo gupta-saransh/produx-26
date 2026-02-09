@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Linkedin, Instagram, MapPin, Mail } from 'lucide-react';
+import { Linkedin, Instagram, MapPin, Mail, Globe } from 'lucide-react';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -14,6 +14,11 @@ export default function Footer() {
       label: 'Instagram', 
       href: 'https://www.instagram.com/bitesys.iims/?hl=en', 
       icon: <Instagram size={20} /> 
+    },
+    { 
+      label: 'Website', 
+      href: 'https://www.iimshillong.ac.in/club-news-events/bitesys/', 
+      icon: <Globe size={20} /> 
     },
   ];
 
