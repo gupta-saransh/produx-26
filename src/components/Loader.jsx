@@ -72,7 +72,7 @@ export default function Loader({ onComplete }) {
             ProdUX
           </text>
 
-          {/* 2. Liquid Fill Layer (Orange, Masked by Text) */}
+          {/* 2. Liquid Fill Layer (White, Masked by Text) */}
           <g mask="url(#textMask)">
             <motion.path
               fill="#ffffff"

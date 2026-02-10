@@ -60,6 +60,27 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
         return;
       }
 
+      // Email validation for IIM Shillong domain
+      if (!formData.email.endsWith('@iimshillong.ac.in')) {
+        alert("Please use your IIM Shillong email address (@iimshillong.ac.in)");
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Validate team member emails for team events
+      if (isTeamEvent) {
+        if (formData.member2Email && !formData.member2Email.endsWith('@iimshillong.ac.in')) {
+          alert("Member 2 email must be an IIM Shillong email address (@iimshillong.ac.in)");
+          setIsSubmitting(false);
+          return;
+        }
+        if (formData.member3Email && !formData.member3Email.endsWith('@iimshillong.ac.in')) {
+          alert("Member 3 email must be an IIM Shillong email address (@iimshillong.ac.in)");
+          setIsSubmitting(false);
+          return;
+        }
+      }
+
       // Safe Data Construction
       const submissionData = {
         firstName: formData.firstName,
@@ -278,7 +299,7 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
                           value={formData.email}
                           onChange={handleChange}
                           className="w-full bg-white/5 border border-brand-red/20 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-orange focus:bg-white/10 transition-all placeholder:text-white/30 validated-input" 
-                          placeholder="neo@matrix.com" 
+                          placeholder="neo@iimshillong.ac.in" 
                       />
                    </div>
                    

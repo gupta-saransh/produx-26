@@ -46,6 +46,7 @@ export default function Footer() {
             <p className="mt-4 text-white/50 max-w-sm">
               The flagship event of bITeSys: The Business and Technology Club of IIM Shillong
             </p>
+            <img src="/logo/bitesys_logo_sleek.png" alt="bITeSys" className="mt-3 h-20 w-auto" />
           </div>
 
           {/* Quick Links */}
@@ -53,7 +54,7 @@ export default function Footer() {
             <h4 className="text-sm font-semibold uppercase tracking-wider text-white/40 mb-4">
               Quick Links
             </h4>
-            <ul className="space-y-3">
+            <ul className="grid grid-cols-2 md:grid-cols-1 gap-x-4 gap-y-3">
               {footerLinks.map((link) => (
                 <li key={link.label}>
                   <a

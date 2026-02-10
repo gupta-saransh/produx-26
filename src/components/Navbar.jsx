@@ -60,7 +60,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 w-full z-50 px-6 md:px-12 transition-all duration-300" style={{ paddingTop: isScrolled ? '0.75rem' : '1rem', paddingBottom: isScrolled ? '0.75rem' : '1rem' }}>
+      <nav className="fixed top-0 left-0 w-full z-50 px-4 md:px-8 lg:px-16 transition-all duration-300" style={{ paddingTop: isScrolled ? '0.75rem' : '1rem', paddingBottom: isScrolled ? '0.75rem' : '1rem' }}>
         <div className="flex items-center justify-between border border-white/10 rounded-full backdrop-blur-sm bg-black/20 transition-all duration-300" style={{ paddingLeft: isScrolled ? '1.2rem' : '1.5rem', paddingRight: isScrolled ? '1.2rem' : '1.5rem', paddingTop: isScrolled ? '0.6rem' : '0.75rem', paddingBottom: isScrolled ? '0.6rem' : '0.75rem' }}>
           {/* Logo */}
           <motion.div
@@ -79,8 +79,8 @@ export default function Navbar() {
             </a>
             <div className="w-[1px] h-6 bg-white/30"></div>
             <Link to="/" className="flex items-center gap-2">
-              <img src="/logo/produx_logo.svg" alt="ProdUX" className={`w-auto object-contain transition-all duration-300 ${isScrolled ? 'h-8 md:h-10' : 'h-10 md:h-12'}`} />
-              <span className={`font-bold tracking-wide transition-all duration-300 ${isScrolled ? 'text-base md:text-lg' : 'text-xl md:text-2xl'}`}>ProdUX'26</span>
+              <img src="/logo/produx_logo.svg" alt="ProdUX" className={`w-auto object-contain transition-all duration-300 ${isScrolled ? 'h-6 md:h-10' : 'h-8 md:h-12'}`} />
+              <span className={`font-bold tracking-wide transition-all duration-300 ${isScrolled ? 'text-sm md:text-lg' : 'text-base md:text-2xl'}`}>ProdUX'26</span>
             </Link>
           </motion.div>
 
@@ -117,6 +117,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
+            <Rocket size={16} className="group-hover:rotate-12 transition-transform" />
             REGISTER NOW
           </motion.button>
 
@@ -189,13 +190,14 @@ export default function Navbar() {
                   setIsRegisterOpen(true);
                   setIsMenuOpen(false);
                 }}
-                className="mt-8 px-8 py-3 bg-brand-red text-white rounded-full text-lg font-medium hover:bg-white hover:text-black transition-colors"
+                className="mt-8 px-8 py-3 bg-brand-orange text-white rounded-full text-lg font-bold tracking-[0.2em] uppercase shadow-[0_0_20px_rgba(255,102,0,0.5)] transition-all flex items-center gap-2"
                 variants={linkVariants}
                 custom={menuItems.length}
                 initial="closed"
                 animate="open"
                 exit="closed"
               >
+                <Rocket size={20} />
                 REGISTER NOW
               </motion.button>
             </div>
