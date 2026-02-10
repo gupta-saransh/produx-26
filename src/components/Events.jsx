@@ -67,11 +67,11 @@ const eventsData = [
     id: 6,
     day: "FEB 20",
     date: "20 FEB",
-    title: "VIRTUSPHERE",
+    title: "VIRTUOSPHERE",
     time: "11:00 AM ONWARDS",
     location: "NAB",
     description: "An engaging Virtual Reality experience for the IIM Shillong community, offering participants a first-hand look at cutting-edge immersive technology.",
-    image: "/images/event_banners/produx.png",
+    image: "/images/event_banners/virtuosphere.png",
     category: "EXPERIENCE"
   },
   {
@@ -82,7 +82,7 @@ const eventsData = [
     time: "10:00 AM - 04:00 PM",
     location: "Auditorium",
     description: "An investor-led hands-on workshop to articulate students with pitching and building business models for tech startups. The event aims to strengthen participants’ ability to pitch technology products with clarity and confidence, while building understanding of business models and investor expectations.",
-    image: "/images/event_banners/produx.png",
+    image: "/images/event_banners/tech_ventures.png",
     category: "STARTUP"
   },
   {
@@ -128,7 +128,7 @@ const GlitchText = ({ text, className }) => {
 const EventCard = ({ event, index, onRegister }) => {
   const isEven = index % 2 === 0;
   const [isInView, setIsInView] = useState(false);
-  const noRegisterList = ["TECH BRIDGE", "VIRTUSPHERE", "bITeCAST"];
+  const noRegisterList = ["TECH BRIDGE", "VIRTUSOPHERE", "bITeCAST"];
   
   return (
     <motion.div
@@ -291,10 +291,16 @@ export default function Events() {
 
             {/* End Node */}
             <div className="relative mt-24 flex justify-center">
-                 <div className="bg-black/80 backdrop-blur border border-white/20 px-8 py-4 rounded-full font-mono text-xs tracking-[0.3em] flex items-center gap-3">
-                    <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
-                    <b>Register Now!</b>
-                 </div>
+                 <button 
+                    onClick={() => {
+                        setSelectedEvent(null);
+                        setRegisterOpen(true);
+                    }}
+                    className="bg-black/80 backdrop-blur border border-white/20 px-8 py-4 rounded-full font-mono text-sm tracking-[0.3em] flex items-center gap-3 hover:border-orange-500/50 hover:bg-orange-500/10 transition-all cursor-pointer group"
+                 >
+                    <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse group-hover:bg-orange-500" />
+                    <span className="font-bold">Register Now!</span>
+                 </button>
             </div>
 
         </div>
