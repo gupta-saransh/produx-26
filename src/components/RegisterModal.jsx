@@ -4,20 +4,11 @@ import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { ref, push } from 'firebase/database';
 import { db } from '../firebase';
-import { useGoogleReCaptcha, GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 
 export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
-  if (!isOpen) return null;
-
-  return (
-      <GoogleReCaptchaProvider reCaptchaKey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}>
-          <RegisterModalContent isOpen={isOpen} onClose={onClose} selectedEvent={selectedEvent} />
-      </GoogleReCaptchaProvider>
-  );
-}
-
-function RegisterModalContent({ isOpen, onClose, selectedEvent }) {
   const { executeRecaptcha } = useGoogleReCaptcha();
+  
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -189,11 +180,11 @@ function RegisterModalContent({ isOpen, onClose, selectedEvent }) {
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.95, opacity: 0, filter: "blur(10px)" }}
             transition={{ type: "spring", duration: 0.6, bounce: 0.3 }}
-            className={`relative bg-[#050505] border-2 border-brand-red/50 w-full max-w-2xl rounded-3xl p-8 md:p-10 shadow-[0_0_50px_rgba(194,0,35,0.3)] overflow-hidden max-h-[90vh] ${isSuccess ? '' : 'overflow-y-auto'}`}
+            className={`relative bg-[#050505] border-2 border-brand-red/50 w-full max-w-2xl rounded-3xl p-5 md:p-10 shadow-[0_0_50px_rgba(194,0,35,0.3)] overflow-hidden max-h-[90vh] ${isSuccess ? '' : 'overflow-y-auto'}`}
           >
              <button
               onClick={onClose}
-              className="absolute top-6 right-6 text-white/50 hover:text-brand-orange transition-colors z-20"
+              className="absolute top-4 right-4 md:top-6 md:right-6 text-white/50 hover:text-brand-orange transition-colors z-20"
             >
               <X size={24} />
             </button> 
@@ -202,12 +193,12 @@ function RegisterModalContent({ isOpen, onClose, selectedEvent }) {
                 <motion.div 
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    className="relative z-10 flex flex-col items-center justify-center text-center py-12"
+                    className="relative z-10 flex flex-col items-center justify-center text-center py-8 md:py-12"
                 >
-                    <div className="w-20 h-20 rounded-full bg-gradient-to-r from-brand-red to-brand-orange flex items-center justify-center mb-6 shadow-[0_0_20px_rgba(255,102,0,0.5)]">
-                        <CheckCircle size={40} className="text-white" />
+                    <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-r from-brand-red to-brand-orange flex items-center justify-center mb-6 shadow-[0_0_20px_rgba(255,102,0,0.5)]">
+                        <CheckCircle size={32} className="text-white md:w-10 md:h-10" />
                     </div>
-                    <h2 className="text-3xl font-bold mb-2 text-white font-tech tracking-widest">
+                    <h2 className="text-2xl md:text-3xl font-bold mb-2 text-white font-tech tracking-widest">
                         REGISTRATION COMPLETE
                     </h2>
                     <p className="text-xl text-brand-yellow font-bold mb-2 font-mono">
@@ -224,12 +215,12 @@ function RegisterModalContent({ isOpen, onClose, selectedEvent }) {
                     </button>
                 </motion.div>
              ) : (             <div className="relative z-10">
-                <h2 className="text-4xl font-bold mb-2 text-transparent bg-clip-text bg-[linear-gradient(to_right,#c20023,#ff6600,#fffb00)] drop-shadow-lg pb-1">
+                <h2 className="text-2xl md:text-4xl font-bold mb-2 text-transparent bg-clip-text bg-[linear-gradient(to_right,#c20023,#ff6600,#fffb00)] drop-shadow-lg pb-1">
                     Mission Registration
                 </h2>
-                <p className="text-white mb-8 text-lg">Secure your spot in the next era of growth.</p>
+                <p className="text-white mb-6 md:mb-8 text-base md:text-lg">Secure your spot in the next era of growth.</p>
 
-                <form className="space-y-5" onSubmit={handleSubmit}>
+                <form className="space-y-4 md:space-y-5" onSubmit={handleSubmit}>
                    {/* Personal Info Grid */}
                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                       <div className="space-y-1">
@@ -405,7 +396,15 @@ function RegisterModalContent({ isOpen, onClose, selectedEvent }) {
                        </div>
                    </div>
                    
-                   <div className="pt-4">
+                   <div className="pt-2 text-center">
+                      <p className="text-[10px] text-white/30 max-w-xs mx-auto leading-relaxed">
+                          This site is protected by reCAPTCHA and the Google{' '}
+                          <a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer" className="text-brand-orange hover:underline">Privacy Policy</a> and{' '}
+                          <a href="https://policies.google.com/terms" target="_blank" rel="noreferrer" className="text-brand-orange hover:underline">Terms of Service</a> apply.
+                      </p>
+                   </div>
+
+                   <div className="pt-2">
                       <button 
                         type="submit" 
                         disabled={isSubmitting}

@@ -87,10 +87,12 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* Ensure Google reCAPTCHA Badge is visible */
+/* Ensure Google reCAPTCHA Badge is hidden (using inline text instead) */
 .grecaptcha-badge { 
-    visibility: visible !important;
-    z-index: 99999 !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    display: none !important;
+    pointer-events: none !important;
 }
 
 @keyframes fadeInZoom {
@@ -101,3 +103,5 @@ h1, h2, h3, h4, h5, h6 {
 .animate-fadeInZoom {
   animation: fadeInZoom 0.8s ease-out forwards;
 }
+
+/* Legacy Badge Rule Removed */
