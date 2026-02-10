@@ -12,6 +12,7 @@ import Events from './components/Events';
 import AboutPage from './components/AboutPage';
 import ContactPage from './components/ContactPage';
 import TeamPage from './components/TeamPage';
+import Showcase from './components/Showcase';
 import ScrollToTopButton from './components/ScrollToTopButton';
 
 // Scroll to top on route change
@@ -59,6 +60,7 @@ function AppContent() {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/events" element={<Events />} />
+            <Route path="/showcase" element={<Showcase />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/team" element={<TeamPage />} />
           </Routes>

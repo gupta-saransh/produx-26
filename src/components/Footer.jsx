@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Linkedin, Instagram, MapPin, Mail, Globe } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -26,6 +27,7 @@ export default function Footer() {
     { label: 'Home', href: '/' },
     { label: 'About', href: '/about' },
     { label: 'Events', href: '/events' },
+    { label: 'Showcase', href: '/showcase' },
     { label: 'Team', href: '/team' },
     { label: 'Contact', href: '/contact' },
   ];
@@ -57,12 +59,12 @@ export default function Footer() {
             <ul className="grid grid-cols-2 md:grid-cols-1 gap-x-4 gap-y-3">
               {footerLinks.map((link) => (
                 <li key={link.label}>
-                  <a
-                    href={link.href}
+                  <Link
+                    to={link.href}
                     className="text-white/70 hover:text-white transition-colors"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

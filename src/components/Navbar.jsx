@@ -24,6 +24,7 @@ export default function Navbar() {
     { label: 'HOME', href: '/' },
     { label: 'ABOUT', href: '/about' },
     { label: 'EVENTS', href: '/events' },
+    { label: 'SHOWCASE', href: '/showcase' },
     { label: 'TEAM', href: '/team' },
     { label: 'CONTACT', href: '/contact' },
   ];
