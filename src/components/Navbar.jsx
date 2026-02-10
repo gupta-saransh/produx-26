@@ -60,8 +60,8 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 w-full z-50 px-4 md:px-8 lg:px-16 transition-all duration-300" style={{ paddingTop: isScrolled ? '0.75rem' : '1rem', paddingBottom: isScrolled ? '0.75rem' : '1rem' }}>
-        <div className="flex items-center justify-between border border-white/10 rounded-full backdrop-blur-sm bg-black/20 transition-all duration-300" style={{ paddingLeft: isScrolled ? '1.2rem' : '1.5rem', paddingRight: isScrolled ? '1.2rem' : '1.5rem', paddingTop: isScrolled ? '0.6rem' : '0.75rem', paddingBottom: isScrolled ? '0.6rem' : '0.75rem' }}>
+      <nav className="fixed top-0 left-0 w-full z-50 px-4 md:px-8 lg:px-16 transition-all duration-300" style={{ paddingTop: isScrolled ? '0.5rem' : '0.75rem', paddingBottom: isScrolled ? '0.5rem' : '0.75rem' }}>
+        <div className="flex items-center justify-between border border-white/10 rounded-full backdrop-blur-sm bg-black/20 transition-all duration-300" style={{ paddingLeft: isScrolled ? '1rem' : '1.2rem', paddingRight: isScrolled ? '1rem' : '1.2rem', paddingTop: isScrolled ? '0.5rem' : '0.6rem', paddingBottom: isScrolled ? '0.5rem' : '0.6rem' }}>
           {/* Logo */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
@@ -73,14 +73,14 @@ export default function Navbar() {
               href="https://www.iimshillong.ac.in" 
               target="_blank" 
               rel="noopener noreferrer"
-              className={`rounded-full flex items-center justify-center p-1 overflow-hidden transition-all duration-300 hover:opacity-80 ${isScrolled ? 'w-12 h-12 md:w-16 md:h-16' : 'w-16 h-16 md:w-20 md:h-20'}`}
+              className={`rounded-full flex items-center justify-center p-1 overflow-hidden transition-all duration-300 hover:opacity-80 ${isScrolled ? 'w-10 h-10 md:w-12 md:h-12' : 'w-12 h-12 md:w-14 md:h-14'}`}
             >
               <img src="/logo/IIMS_Logo.png" alt="IIM Shillong" className="h-full w-full object-contain" />
             </a>
             <div className="w-[1px] h-6 bg-white/30"></div>
             <Link to="/" className="flex items-center gap-2">
-              <img src="/logo/produx_logo.svg" alt="ProdUX" className={`w-auto object-contain transition-all duration-300 ${isScrolled ? 'h-6 md:h-10' : 'h-8 md:h-12'}`} />
-              <span className={`font-bold tracking-wide transition-all duration-300 ${isScrolled ? 'text-sm md:text-lg' : 'text-base md:text-2xl'}`}>ProdUX'26</span>
+              <img src="/logo/produx_logo.svg" alt="ProdUX" className={`w-auto object-contain transition-all duration-300 ${isScrolled ? 'h-5 md:h-8' : 'h-6 md:h-9'}`} />
+              <span className={`font-bold tracking-wide transition-all duration-300 ${isScrolled ? 'text-sm md:text-base' : 'text-sm md:text-lg'}`}>ProdUX'26</span>
             </Link>
           </motion.div>
 
@@ -97,7 +97,7 @@ export default function Navbar() {
                 <Link
                   key={item.label}
                   to={item.href}
-                  className={`font-medium transition-all rounded-full ${isScrolled ? 'text-base px-3 py-1.5' : 'text-lg px-4 py-2'} ${
+                  className={`font-medium transition-all rounded-full ${isScrolled ? 'text-sm px-2.5 py-1' : 'text-base px-3 py-1.5'} ${
                     isActive 
                       ? 'bg-white text-black' 
                       : 'text-white/70 hover:text-black hover:bg-white'
@@ -112,7 +112,7 @@ export default function Navbar() {
           {/* CTA Button */}
           <motion.button
             onClick={() => setIsRegisterOpen(true)}
-            className={`hidden lg:flex items-center gap-2 bg-brand-orange text-white rounded-full font-bold tracking-[0.2em] uppercase shadow-[0_0_20px_rgba(255,102,0,0.5)] hover:shadow-[0_0_35px_rgba(255,102,0,0.9)] transition-all transform hover:scale-105 group relative ${isScrolled ? 'px-5 py-2 text-xs' : 'px-6 py-2.5 text-sm'}`}
+            className={`hidden lg:flex items-center gap-2 bg-brand-orange text-white rounded-full font-bold tracking-[0.2em] uppercase shadow-[0_0_20px_rgba(255,102,0,0.5)] hover:shadow-[0_0_35px_rgba(255,102,0,0.9)] transition-all transform hover:scale-105 group relative ${isScrolled ? 'px-4 py-1.5 text-xs' : 'px-5 py-2 text-xs'}`}
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}

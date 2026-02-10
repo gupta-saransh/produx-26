@@ -396,7 +396,7 @@ export default function HeroRobotics() {
 
       {/* Content */}
       <motion.div
-        className="relative z-20 h-full flex flex-col items-center justify-center px-4 md:px-6 text-center pt-16 md:pt-24"
+        className="relative z-20 h-full flex flex-col items-center justify-center px-4 md:px-6 text-center pt-12 md:pt-20 lg:pt-28"
         style={{ y, opacity }}
       >
         {/* Main Title */}
