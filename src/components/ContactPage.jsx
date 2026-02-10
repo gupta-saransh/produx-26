@@ -33,11 +33,11 @@ export default function ContactPage() {
                 {/* Contact Info Cards Grid */}
                 <div className="grid lg:grid-cols-3 gap-8 w-full">
                     {/* Address Card */}
-                    <div className="bg-brand-red/5 border border-brand-red/20 p-10 rounded-3xl flex flex-col items-center text-center gap-6 hover:bg-brand-red/10 transition-colors h-full justify-between group">
+                    <div className="bg-brand-red/5 border border-brand-red/20 p-8 xl:p-10 rounded-3xl flex flex-col items-center text-center gap-6 hover:bg-brand-red/10 transition-colors h-full group">
                         <div className="p-5 bg-brand-orange/20 rounded-full text-brand-orange group-hover:scale-110 transition-transform duration-300">
                              <MapPin size={40} />
                         </div>
-                        <div className="flex-1 flex flex-col justify-center">
+                        <div className="w-full h-full flex flex-col justify-start pt-4">
                             <h3 className="text-2xl font-bold font-mono mb-4 text-white tracking-wide">OPERATIONAL BASE</h3>
                             <p className="text-white/80 text-lg leading-relaxed">
                                 IIM Shillong, Umsawli,<br/>
@@ -47,11 +47,11 @@ export default function ContactPage() {
                     </div>
 
                     {/* Phone Card */}
-                    <div className="bg-brand-red/5 border border-brand-red/20 p-10 rounded-3xl flex flex-col items-center text-center gap-6 hover:bg-brand-red/10 transition-colors h-full justify-between group">
+                    <div className="bg-brand-red/5 border border-brand-red/20 p-8 xl:p-10 rounded-3xl flex flex-col items-center text-center gap-6 hover:bg-brand-red/10 transition-colors h-full group">
                         <div className="p-5 bg-brand-orange/20 rounded-full text-brand-orange group-hover:scale-110 transition-transform duration-300">
                              <Phone size={40} />
                         </div>
-                        <div className="w-full flex-1 flex flex-col justify-center">
+                        <div className="w-full h-full flex flex-col justify-start pt-4">
                             <h3 className="text-2xl font-bold font-mono mb-8 text-white tracking-wide">SECURE LINES</h3>
                             <div className="flex flex-col xl:flex-row gap-4 justify-center items-center w-full">
                                 <div className="flex flex-col items-center">
@@ -74,11 +74,11 @@ export default function ContactPage() {
                     </div>
 
                     {/* Email Card */}
-                     <div className="bg-brand-red/5 border border-brand-red/20 p-10 rounded-3xl flex flex-col items-center text-center gap-6 hover:bg-brand-red/10 transition-colors h-full justify-between group">
+                     <div className="bg-brand-red/5 border border-brand-red/20 p-8 xl:p-10 rounded-3xl flex flex-col items-center text-center gap-6 hover:bg-brand-red/10 transition-colors h-full group">
                         <div className="p-5 bg-brand-orange/20 rounded-full text-brand-orange group-hover:scale-110 transition-transform duration-300">
                              <Mail size={40} />
                         </div>
-                        <div className="flex-1 flex flex-col justify-center">
+                        <div className="w-full h-full flex flex-col justify-start pt-4">
                             <h3 className="text-2xl font-bold font-mono mb-4 text-white tracking-wide">DIGITAL COMM</h3>
                             <p className="text-white/60 text-base mb-2 uppercase tracking-widest">General Inquiries</p>
                             <a href="mailto:bitesys@iimshillong.ac.in" className="text-base md:text-lg font-bold tracking-wider hover:text-brand-orange transition-colors whitespace-nowrap">

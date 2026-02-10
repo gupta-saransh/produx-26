@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import NetworkBackground from './NetworkBackground';
@@ -132,76 +133,79 @@ export default function Showcase() {
       </div>
 
       {/* Lightbox */}
-      <AnimatePresence>
-        {selectedImage && (
-          <motion.div
-            className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-xl flex items-center justify-center"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={closeLightbox}
-          >
-            {/* Close button */}
-            <motion.button
-              className="absolute top-4 right-4 z-[110] p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors"
-              onClick={closeLightbox}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <X size={24} className="text-white" />
-            </motion.button>
-
-            {/* Previous button */}
-            <motion.button
-              className="absolute left-4 z-[110] p-3 bg-white/10 hover:bg-white/20 rounded-full transition-colors"
-              onClick={(e) => {
-                e.stopPropagation();
-                goToPrevious();
-              }}
-              whileHover={{ scale: 1.1, x: -5 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <ChevronLeft size={32} className="text-white" />
-            </motion.button>
-
-            {/* Next button */}
-            <motion.button
-              className="absolute right-4 z-[110] p-3 bg-white/10 hover:bg-white/20 rounded-full transition-colors"
-              onClick={(e) => {
-                e.stopPropagation();
-                goToNext();
-              }}
-              whileHover={{ scale: 1.1, x: 5 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <ChevronRight size={32} className="text-white" />
-            </motion.button>
-
-            {/* Image container */}
+      {createPortal(
+        <AnimatePresence>
+          {selectedImage && (
             <motion.div
-              className="relative max-w-7xl max-h-[90vh] mx-4"
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              onClick={(e) => e.stopPropagation()}
+              className="fixed inset-0 z-[2000] bg-black/95 backdrop-blur-xl flex items-center justify-center"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={closeLightbox}
             >
-              <img
-                src={selectedImage.src}
-                alt={selectedImage.alt}
-                className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
-              />
-              
-              {/* Image counter */}
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-sm px-4 py-2 rounded-full">
-                <p className="text-white text-sm font-mono">
-                  {lightboxIndex + 1} / {images.length}
-                </p>
-              </div>
+              {/* Close button */}
+              <motion.button
+                className="absolute top-4 right-4 z-[2010] p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors"
+                onClick={closeLightbox}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <X size={24} className="text-white" />
+              </motion.button>
+
+              {/* Previous button */}
+              <motion.button
+                className="absolute left-4 z-[2010] p-3 bg-white/10 hover:bg-white/20 rounded-full transition-colors"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  goToPrevious();
+                }}
+                whileHover={{ scale: 1.1, x: -5 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <ChevronLeft size={32} className="text-white" />
+              </motion.button>
+
+              {/* Next button */}
+              <motion.button
+                className="absolute right-4 z-[2010] p-3 bg-white/10 hover:bg-white/20 rounded-full transition-colors"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  goToNext();
+                }}
+                whileHover={{ scale: 1.1, x: 5 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <ChevronRight size={32} className="text-white" />
+              </motion.button>
+
+              {/* Image container */}
+              <motion.div
+                className="relative max-w-7xl max-h-[90vh] mx-4"
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.8, opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <img
+                  src={selectedImage.src}
+                  alt={selectedImage.alt}
+                  className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
+                />
+                
+                {/* Image counter */}
+                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-sm px-4 py-2 rounded-full">
+                  <p className="text-white text-sm font-mono">
+                    {lightboxIndex + 1} / {images.length}
+                  </p>
+                </div>
+              </motion.div>
             </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
       </div>
     </div>
   );

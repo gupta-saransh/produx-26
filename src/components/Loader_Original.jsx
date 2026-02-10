@@ -88,7 +88,7 @@ export default function Loader() {
                             initial={{ scale: 0 }}
                             animate={{ scale: isActive ? 1.5 : 1 }}
                          />
-                         <span className={`text-[10px] font-mono tracking-[0.2em] ${isActive ? 'text-white' : 'text-gray-700'}`}>
+                         <span className={`text-[8px] font-mono tracking-[0.2em] ${isActive ? 'text-white' : 'text-gray-700'}`}>
                              {stamp.label}
                          </span>
                      </motion.div>

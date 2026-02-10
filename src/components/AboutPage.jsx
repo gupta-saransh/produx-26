@@ -41,6 +41,22 @@ export default function AboutPage() {
         {/* Spacing below navbar */}
         <div className="h-32 md:h-40"></div>
 
+        {/* Header */}
+        <div className="text-center pb-20 px-4">
+            <motion.div 
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+            >
+                <h1 className="text-5xl md:text-7xl font-bold mb-6 font-tech tracking-widest">
+                    ABOUT <span className="text-transparent bg-clip-text bg-[linear-gradient(to_right,#c20023,#ff6600,#fffb00)] drop-shadow-lg pb-2">THE EVENT</span>
+                </h1>
+                <p className="text-xl text-white/50 max-w-2xl mx-auto">
+                    Merging Business Strategy with Technological Innovation
+                </p>
+            </motion.div>
+        </div>
+
         {/* ──────────── ABOUT + STATS SIDE BY SIDE ──────────── */}
         <section className="max-w-6xl mx-auto px-6 md:px-8 pb-20 md:pb-28">
         <div className="grid md:grid-cols-2 gap-24 md:gap-16 items-start">

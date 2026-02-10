@@ -68,17 +68,15 @@ export default function Navbar() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="flex items-center gap-4 z-50 text-white"
+            className="flex items-center text-white"
           >
-            <a 
-              href="https://www.iimshillong.ac.in" 
-              target="_blank" 
-              rel="noopener noreferrer"
+            <Link 
+              to="/" 
               className={`rounded-full flex items-center justify-center p-1 overflow-hidden transition-all duration-300 hover:opacity-80 ${isScrolled ? 'w-10 h-10 md:w-12 md:h-12' : 'w-12 h-12 md:w-14 md:h-14'}`}
             >
               <img src="/logo/IIMS_Logo.png" alt="IIM Shillong" className="h-full w-full object-contain" />
-            </a>
-            <div className="w-[1px] h-6 bg-white/30"></div>
+            </Link>
+            <div className="w-[1px] h-6 bg-white/30 ml-3 mr-4"></div>
             <Link to="/" className="flex items-center gap-2">
               <img src="/logo/produx_logo.svg" alt="ProdUX" className={`w-auto object-contain transition-all duration-300 ${isScrolled ? 'h-5 md:h-8' : 'h-6 md:h-9'}`} />
               <span className={`font-bold tracking-wide transition-all duration-300 ${isScrolled ? 'text-sm md:text-base' : 'text-sm md:text-lg'}`}>ProdUX'26</span>
@@ -87,7 +85,7 @@ export default function Navbar() {
 
           {/* Desktop Nav */}
           <motion.div
-            className="hidden lg:flex items-center gap-4"
+            className="hidden min-[1155px]:flex items-center gap-4"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
@@ -113,7 +111,7 @@ export default function Navbar() {
           {/* CTA Button */}
           <motion.button
             onClick={() => setIsRegisterOpen(true)}
-            className={`hidden lg:flex items-center gap-2 bg-brand-orange text-white rounded-full font-bold tracking-[0.2em] uppercase shadow-[0_0_20px_rgba(255,102,0,0.5)] hover:shadow-[0_0_35px_rgba(255,102,0,0.9)] transition-all transform hover:scale-105 group relative ${isScrolled ? 'px-4 py-1.5 text-xs' : 'px-5 py-2 text-xs'}`}
+            className={`hidden min-[1155px]:flex items-center gap-2 bg-brand-orange text-white rounded-full font-bold tracking-[0.2em] uppercase shadow-[0_0_20px_rgba(255,102,0,0.5)] hover:shadow-[0_0_35px_rgba(255,102,0,0.9)] transition-all transform hover:scale-105 group relative ${isScrolled ? 'px-4 py-1.5 text-xs' : 'px-5 py-2 text-xs'}`}
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -125,7 +123,7 @@ export default function Navbar() {
           {/* Mobile Menu Button */}
           <motion.button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="lg:hidden z-50 flex flex-col gap-1.5 p-2 cursor-pointer"
+            className="min-[1155px]:hidden z-50 flex flex-col gap-1.5 p-2 cursor-pointer"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6 }}
@@ -156,13 +154,13 @@ export default function Navbar() {
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
-            className="fixed inset-0 z-40 bg-[#0a0a0a]/95 backdrop-blur-xl flex items-center justify-center"
+            className="fixed inset-0 z-40 bg-[#0a0a0a]/95 backdrop-blur-xl flex flex-col items-center justify-center pt-24"
             variants={menuVariants}
             initial="closed"
             animate="open"
             exit="closed"
           >
-            <div className="flex flex-col items-center gap-8">
+            <div className="flex flex-col items-center gap-6">
               {menuItems.map((item, i) => {
                 const isActive = location.pathname === item.href;
                 return (
@@ -177,7 +175,7 @@ export default function Navbar() {
                      <Link
                       to={item.href}
                       onClick={() => setIsMenuOpen(false)}
-                      className={`text-4xl md:text-5xl font-bold transition-colors cursor-pointer tracking-tight ${
+                      className={`text-3xl md:text-4xl font-bold transition-colors cursor-pointer tracking-tight ${
                         isActive ? 'text-brand-orange' : 'text-white hover:text-brand-orange'
                       }`}
                     >
@@ -191,14 +189,14 @@ export default function Navbar() {
                   setIsRegisterOpen(true);
                   setIsMenuOpen(false);
                 }}
-                className="mt-8 px-8 py-3 bg-brand-orange text-white rounded-full text-lg font-bold tracking-[0.2em] uppercase shadow-[0_0_20px_rgba(255,102,0,0.5)] transition-all flex items-center gap-2"
+                className="mt-6 px-6 py-2 bg-brand-orange text-white rounded-full text-base font-bold tracking-[0.2em] uppercase shadow-[0_0_20px_rgba(255,102,0,0.5)] transition-all flex items-center gap-2"
                 variants={linkVariants}
                 custom={menuItems.length}
                 initial="closed"
                 animate="open"
                 exit="closed"
               >
-                <Rocket size={20} />
+                <Rocket size={18} />
                 REGISTER NOW
               </motion.button>
             </div>

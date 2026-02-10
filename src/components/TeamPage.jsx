@@ -75,6 +75,7 @@ export default function TeamPage() {
   ];
 
   const associateMembers = [
+      { name: 'Aaditya', image: '/images/team_2027/Aaditya.jpeg', role: 'Associate Member', linkedin: 'https://www.linkedin.com/in/aadityabedi/' },
       { name: 'Bhuswarna', image: '/images/team_2027/Bhuswarna.jpeg', role: 'Associate Member', linkedin: 'https://www.linkedin.com/in/bhuswarna-kashyap-703796187/' },
       { name: 'Harshita', image: '/images/team_2027/Harshita.jpeg', role: 'Associate Member', linkedin: 'https://www.linkedin.com/in/harshita-kedia-5a9303206/' },
       { name: 'Kritika', image: '/images/team_2027/Kritika.jpeg', role: 'Associate Member', linkedin: 'https://www.linkedin.com/in/kritika-dewan/' },

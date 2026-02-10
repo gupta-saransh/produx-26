@@ -14,6 +14,7 @@ import ContactPage from './components/ContactPage';
 import TeamPage from './components/TeamPage';
 import Showcase from './components/Showcase';
 import ScrollToTopButton from './components/ScrollToTopButton';
+import NotFound from './components/NotFound';
 
 // Scroll to top on route change
 function ScrollToTop() {
@@ -63,6 +64,7 @@ function AppContent() {
             <Route path="/showcase" element={<Showcase />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/team" element={<TeamPage />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
           
           {!isEventsPage && <Footer />}

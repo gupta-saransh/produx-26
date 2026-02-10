@@ -231,11 +231,11 @@ function MechanicalCountdown() {
   });
 
   return (
-    <div className="flex gap-2 md:gap-6 mt-6 md:mt-8 flex-wrap justify-center px-2">
+    <div className="flex gap-2 md:gap-8 mt-10 md:mt-16 justify-center items-center px-1 flex-nowrap overflow-x-auto w-full md:w-auto overflow-y-hidden">
       {Object.entries(timeLeft).map(([interval, value], index) => (
         <motion.div
           key={interval}
-          className="relative"
+          className="relative shrink-0"
           initial={{ opacity: 0, rotateX: 90 }}
           animate={{ opacity: 1, rotateX: 0 }}
           transition={{ duration: 0.6, delay: 0.8 + index * 0.1 }}
@@ -252,12 +252,12 @@ function MechanicalCountdown() {
             </svg>
           </motion.div>
 
-          <div className="relative bg-gradient-to-br from-zinc-900 to-black border-2 border-orange-500/30 rounded-lg overflow-hidden p-3 md:p-6 min-w-[75px] md:min-w-[100px]">
+          <div className="relative bg-gradient-to-br from-zinc-900 to-black border-2 border-orange-500/30 rounded-lg overflow-hidden p-2 md:p-6 min-w-[65px] md:min-w-[100px]">
             {/* Corner bolts */}
-            <div className="absolute top-1 left-1 w-2 h-2 rounded-full bg-orange-500/50 border border-orange-600" />
-            <div className="absolute top-1 right-1 w-2 h-2 rounded-full bg-orange-500/50 border border-orange-600" />
-            <div className="absolute bottom-1 left-1 w-2 h-2 rounded-full bg-orange-500/50 border border-orange-600" />
-            <div className="absolute bottom-1 right-1 w-2 h-2 rounded-full bg-orange-500/50 border border-orange-600" />
+            <div className="absolute top-1 left-1 w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-orange-500/50 border border-orange-600" />
+            <div className="absolute top-1 right-1 w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-orange-500/50 border border-orange-600" />
+            <div className="absolute bottom-1 left-1 w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-orange-500/50 border border-orange-600" />
+            <div className="absolute bottom-1 right-1 w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-orange-500/50 border border-orange-600" />
 
             {/* Scanline effect */}
             <motion.div
@@ -266,9 +266,9 @@ function MechanicalCountdown() {
               transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
             />
 
-            <div className="relative flex flex-col items-center gap-1 md:gap-2">
+            <div className="relative flex flex-col items-center gap-0.5 md:gap-2">
               <motion.div
-                className="relative text-3xl md:text-5xl font-bold font-mono tabular-nums text-white"
+                className="relative text-2xl md:text-5xl font-bold font-mono tabular-nums text-white"
                 key={value}
                 initial={{ y: -20, opacity: 0, filter: 'blur(10px)' }}
                 animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
@@ -280,14 +280,14 @@ function MechanicalCountdown() {
                 {String(value || '0').padStart(2, '0')}
               </motion.div>
               
-              <div className="text-[10px] md:text-xs text-white/60 uppercase tracking-[0.2em] font-bold">
+              <div className="text-[7.2px] md:text-xs text-white/60 uppercase tracking-[0.1em] md:tracking-[0.2em] font-bold">
                 {interval}
               </div>
             </div>
 
             {/* LED indicator */}
             <motion.div
-              className="absolute bottom-2 right-2 w-1.5 h-1.5 rounded-full bg-green-500"
+              className="absolute bottom-2 right-2 w-1 md:w-1.5 h-1 md:h-1.5 rounded-full bg-green-500"
               animate={{ opacity: [1, 0.3, 1] }}
               transition={{ duration: 2, repeat: Infinity }}
               style={{ boxShadow: '0 0 5px #22c55e' }}
@@ -390,7 +390,7 @@ export default function HeroRobotics() {
   return (
     <section
       ref={containerRef}
-      className="relative h-screen w-full overflow-hidden"
+      className="relative h-[100dvh] w-full overflow-hidden flex flex-col"
     >
       {/* Gradient overlays */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/60 via-transparent to-[#0a0a0a] z-10 pointer-events-none" />
@@ -398,12 +398,12 @@ export default function HeroRobotics() {
 
       {/* Content */}
       <motion.div
-        className="relative z-20 h-full flex flex-col items-center justify-center px-4 md:px-6 text-center pt-12 md:pt-20 lg:pt-28"
+        className="relative z-20 flex-1 flex flex-col items-center justify-center px-4 md:px-6 text-center pt-20 pb-4 md:pb-8"
         style={{ y, opacity }}
       >
-        {/* Main Title */}
+        {/* Main Title - Compact on Short Screens */}
         <HolographicDisplay delay={0.3}>
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold font-tech tracking-wider mb-4">
+          <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold font-tech tracking-wider mb-2 md:mb-6">
             <motion.span
               className="inline-block text-white/70 mr-3 md:mr-4"
               initial={{ opacity: 0, x: -20 }}
@@ -430,44 +430,46 @@ export default function HeroRobotics() {
           </h1>
         </HolographicDisplay>
 
-        {/* Year with robot mascot reference */}
+        {/* Year with robot mascot reference - Reduced margins */}
         <motion.div
-          className="flex items-center gap-3 md:gap-4 mb-6"
+          className="flex items-center gap-3 md:gap-5 mb-4 md:mb-8"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
-          <div className="w-12 h-12 md:w-16 md:h-16 rounded-full border-2 border-orange-500/50 flex items-center justify-center overflow-hidden bg-orange-500/10">
+          <div className="w-10 h-10 md:w-16 md:h-16 rounded-full border-2 border-orange-500/50 flex items-center justify-center overflow-hidden bg-orange-500/10">
             <img src="/logo/produx_logo.svg" alt="Robot" className="w-full h-full object-contain" />
           </div>
-          <span className="text-5xl md:text-7xl font-black font-tech text-white/80">
+          <span className="text-4xl md:text-7xl font-black font-tech text-white/80">
             <TerminalText delay={700}>2026</TerminalText>
           </span>
         </motion.div>
 
         {/* Subtitle */}
         <motion.div
-          className="max-w-xs md:max-w-3xl px-2"
+          className="max-w-xs md:max-w-3xl px-2 mb-4 md:mb-0"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 1.0 }}
         >
-          <div className="inline-block border border-orange-500/30 bg-orange-500/5 backdrop-blur-sm px-4 md:px-6 py-2 md:py-3 rounded-lg">
-            <p className="text-base md:text-3xl font-tech font-semibold tracking-wide text-orange-400 mb-1 md:mb-2">
+          <div className="inline-block border border-orange-500/30 bg-orange-500/5 backdrop-blur-sm px-3 py-2 md:px-6 md:py-3 rounded-lg">
+            <p className="text-sm md:text-3xl font-tech font-semibold tracking-wide text-orange-400 mb-0 md:mb-2">
               Designing the Next Era of Growth
             </p>
-            <p className="text-xs md:text-sm text-white/50 font-mono tracking-wider md:tracking-[0.3em] uppercase">
+            <p className="text-[10px] md:text-sm text-white/50 font-mono tracking-wider md:tracking-[0.3em] uppercase hidden md:block">
               [16.02.2026 — 22.02.2026]
             </p>
           </div>
         </motion.div>
 
-        {/* Mechanical Countdown */}
-        <MechanicalCountdown />
+        {/* Mechanical Countdown - Scaled down for mobile/short screens */}
+        <div className="scale-[0.8] md:scale-100 origin-center -my-4 md:my-0">
+             <MechanicalCountdown />
+        </div>
 
-        {/* Action Buttons */}
+        {/* Action Buttons - Moved closer */}
         <motion.div
-          className="flex flex-row items-center gap-3 md:gap-6 mt-8 md:mt-10"
+          className="flex flex-row items-center gap-3 md:gap-6 mt-4 md:mt-10 mb-4 md:mb-2"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.3 }}
@@ -475,14 +477,14 @@ export default function HeroRobotics() {
           {/* Explore Events Button */}
           <Link to="/events">
             <motion.div
-              className="group relative overflow-hidden px-4 py-2 sm:px-8 sm:py-3 md:px-10 md:py-4 rounded-full border-2 border-orange-500/50 text-white font-bold text-xs sm:text-sm md:text-base tracking-wider uppercase transition-all duration-300 cursor-pointer"
+              className="group relative overflow-hidden px-4 py-3 sm:px-6 sm:py-3 md:px-10 md:py-4 rounded-full border-2 border-orange-500/50 text-white font-bold text-xs sm:text-sm md:text-base tracking-wider uppercase transition-all duration-300 cursor-pointer"
               whileHover={{ scale: 1.05, borderColor: 'rgba(234, 145, 45, 1)' }}
               whileTap={{ scale: 0.95 }}
             >
               <div className="absolute inset-0 bg-gradient-to-r from-orange-500/0 via-orange-500/20 to-orange-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <span className="relative z-10 flex items-center gap-2">
                 <span>Explore Events</span>
-                <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-3 h-3 md:w-4 md:h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </span>
@@ -492,7 +494,7 @@ export default function HeroRobotics() {
           {/* Register Now Button */}
           <motion.button
             onClick={() => setIsRegisterOpen(true)}
-            className="group relative overflow-hidden px-4 py-2 sm:px-8 sm:py-3 md:px-10 md:py-4 rounded-full bg-gradient-to-r from-orange-500 to-red-600 text-white font-bold text-xs sm:text-sm md:text-base tracking-wider uppercase shadow-[0_0_20px_rgba(234,145,45,0.4)] transition-all duration-300"
+            className="group relative overflow-hidden px-4 py-3 sm:px-6 sm:py-3 md:px-10 md:py-4 rounded-full bg-gradient-to-r from-orange-500 to-red-600 text-white font-bold text-xs sm:text-sm md:text-base tracking-wider uppercase shadow-[0_0_20px_rgba(234,145,45,0.4)] transition-all duration-300"
             whileHover={{ 
               scale: 1.05,
               boxShadow: '0 0 30px rgba(234, 145, 45, 0.6), 0 0 60px rgba(234, 145, 45, 0.3)'
@@ -501,7 +503,7 @@ export default function HeroRobotics() {
           >
             <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/0 via-yellow-400/30 to-yellow-400/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             <span className="relative z-10 flex items-center gap-2">
-              <Rocket size={16} className="group-hover:rotate-12 transition-transform" />
+              <Rocket size={14} className="md:w-4 md:h-4 group-hover:rotate-12 transition-transform" />
               <span>Register Now</span>
             </span>
           </motion.button>
@@ -509,7 +511,7 @@ export default function HeroRobotics() {
 
         {/* Tech specs bar */}
         <motion.div
-          className="mt-4 md:mt-6 flex flex-wrap justify-center gap-3 md:gap-6 text-[10px] md:text-xs font-mono text-white/40"
+          className="mt-2 md:mt-6 flex flex-wrap justify-center gap-3 md:gap-6 text-[8px] md:text-xs font-mono text-white/40 mb-2 md:mb-0"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5 }}
