@@ -62,26 +62,31 @@ const TeamSection = ({ title, members, delayBase = 0 }) => {
 
 export default function TeamPage() {
   const officeBearers = [
-      { name: 'Afreen', image: '/images/team_2026/Afreen.jpg', role: 'Office Bearer', linkedin: 'https://www.linkedin.com/in/shaik-afreen-047202163/' },
+      { name: 'Afreen', image: '/images/team_2026/Afreen.webp', role: 'Office Bearer', linkedin: 'https://www.linkedin.com/in/shaik-afreen-047202163/' },
       { name: 'Akash', image: '/images/team_2026/Akash.jpeg', role: 'Office Bearer', linkedin: 'https://www.linkedin.com/in/akash-menon11/' },
-      { name: 'Animesh', image: '/images/team_2026/Animesh.jpg', role: 'Office Bearer', linkedin: 'https://www.linkedin.com/in/animesh-tiwari-534235163/' },
-      { name: 'Anoushka', image: '/images/team_2026/Anoushka.jpeg', role: 'Office Bearer', linkedin: 'https://www.linkedin.com/in/anoushka-kumar-629107174/' },
+      { name: 'Animesh', image: '/images/team_2026/Animesh.webp', role: 'Office Bearer', linkedin: 'https://www.linkedin.com/in/animesh-tiwari-534235163/' },
+      { name: 'Anoushka', image: '/images/team_2026/Anoushka.webp', role: 'Office Bearer', linkedin: 'https://www.linkedin.com/in/anoushka-kumar-629107174/' },
       { name: 'Aratrika', image: '/images/team_2026/Aratrika.jpg', role: 'Office Bearer', linkedin: 'https://www.linkedin.com/in/aratrika-mondal-a185b727b/' },
-      { name: 'Harshit', image: '/images/team_2026/Harshit.jpg', role: 'Office Bearer', linkedin: 'https://www.linkedin.com/in/harshit-jain-5692a622a/' },
-      { name: 'Himani', image: '/images/team_2026/Himani.jpg', role: 'Office Bearer', linkedin: 'https://www.linkedin.com/in/himani-dangi-aa2134178/' },
+      { name: 'Harshit', image: '/images/team_2026/Harshit.webp', role: 'Office Bearer', linkedin: 'https://www.linkedin.com/in/harshit-jain-5692a622a/' },
+      { name: 'Himani', image: '/images/team_2026/Himani.webp', role: 'Office Bearer', linkedin: 'https://www.linkedin.com/in/himani-dangi-aa2134178/' },
       { name: 'Saransh', image: '/images/team_2026/Saransh.jpg', role: 'Office Bearer', linkedin: 'https://www.linkedin.com/in/gupta-saransh/' },
       { name: 'Tanay', image: '/images/team_2026/Tanay.jpg', role: 'Office Bearer', linkedin: 'https://www.linkedin.com/in/tanay-pandey-26314614b/' },
-      { name: 'Yash', image: '/images/team_2026/Yash.jpg', role: 'Office Bearer', linkedin: 'https://www.linkedin.com/in/yashkudesia/' },
+      { name: 'Yash', image: '/images/team_2026/Yash.webp', role: 'Office Bearer', linkedin: 'https://www.linkedin.com/in/yashkudesia/' },
   ];
 
   const associateMembers = [
       { name: 'Bhuswarna', image: '/images/team_2027/Bhuswarna.jpeg', role: 'Associate Member', linkedin: 'https://www.linkedin.com/in/bhuswarna-kashyap-703796187/' },
+      { name: 'Harshita', image: '/images/team_2027/Harshita.jpeg', role: 'Associate Member', linkedin: 'https://www.linkedin.com/in/harshita-kedia-5a9303206/' },
+      { name: 'Kritika', image: '/images/team_2027/Kritika.jpeg', role: 'Associate Member', linkedin: 'https://www.linkedin.com/in/kritika-dewan/' },
+      { name: 'Niharika', image: '/images/team_2027/Niharika.jpeg', role: 'Associate Member', linkedin: 'https://www.linkedin.com/in/niharika-sabharwal-9058ab1ab/' },
+      { name: 'Nityansh', image: '/images/team_2027/Nityansh.webp', role: 'Associate Member', linkedin: 'https://www.linkedin.com/in/nityansh-garg/' },
       { name: 'Prathamesh', image: '/images/team_2027/Prathamesh.jpeg', role: 'Associate Member', linkedin: 'https://www.linkedin.com/in/prathamesh-supe/' },
-      { name: 'Sampath', image: '/images/team_2027/Sampath.jpg', role: 'Associate Member', linkedin: 'https://www.linkedin.com/in/komarapuri-sampath-kumar-9s25/' },
+      { name: 'Sampath', image: '/images/team_2027/Sampath.webp', role: 'Associate Member', linkedin: 'https://www.linkedin.com/in/komarapuri-sampath-kumar-9s25/' },
+      { name: 'Vishwas', image: '/images/team_2027/Vishwas.webp', role: 'Associate Member', linkedin: 'https://www.linkedin.com/in/vishwasksharma/' },
   ];
 
   return (
-    <div className="min-h-screen pt-24 px-6 md:px-12 bg-[#050505] text-white relative">
+    <div className="min-h-screen pt-36 px-6 md:px-12 bg-[#050505] text-white relative">
         <div className="fixed inset-0 z-0 pointer-events-none">
           <NetworkBackground />
           <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black opacity-80" />

@@ -1,15 +1,15 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronDown, Users, User, Rocket } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { ref, push } from 'firebase/database';
 import { db } from '../firebase';
 
-export default function RegisterModal({ isOpen, onClose }) {
+export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
-    eventType: '',
+    eventType: selectedEvent || '',
     teamName: '',
     member2Name: '',
     member2Email: '',
@@ -18,17 +18,26 @@ export default function RegisterModal({ isOpen, onClose }) {
     email: ''
   });
   
+  // Sync selectedEvent when it changes or when modal opens
+
+  
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  useEffect(() => {
+    if (selectedEvent) {
+      setFormData(prev => ({ ...prev, eventType: selectedEvent }));
+    }
+  }, [selectedEvent, isOpen]);
+
   const eventOptions = [
-    "Tech Ventures",
-    "Prompt Engineering Workshop",
-    "Figma Workshop",
-    "Boardroom Battleground",
-    "bITeWars"
+    "TECHVENTURES",
+    "PRECISE PROMPT",
+    "FIGMAFORGE",
+    "BOARDROOM BATTLEGROUND",
+    "bITeWARS"
   ];
 
-  const teamEvents = ["Boardroom Battleground", "bITeWars"];
+  const teamEvents = ["BOARDROOM BATTLEGROUND", "bITeWARS"];
   const isTeamEvent = teamEvents.includes(formData.eventType);
 
   const handleChange = (e) => {
@@ -129,13 +138,13 @@ export default function RegisterModal({ isOpen, onClose }) {
                 <h2 className="text-4xl font-bold mb-2 text-transparent bg-clip-text bg-[linear-gradient(to_right,#c20023,#ff6600,#fffb00)] drop-shadow-lg pb-1">
                     Mission Registration
                 </h2>
-                <p className="text-[#ffb300]/80 mb-8">Secure your spot in the next era of growth.</p>
+                <p className="text-white mb-8 text-lg">Secure your spot in the next era of growth.</p>
 
                 <form className="space-y-5" onSubmit={handleSubmit}>
                    {/* Personal Info Grid */}
                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                       <div className="space-y-1">
-                        <label className="text-xs font-mono text-[#ffd700] uppercase tracking-widest pl-1">First Name <span className="text-brand-red">*</span></label>
+                        <label className="text-sm font-mono text-white uppercase tracking-widest pl-1">First Name <span className="text-brand-red">*</span></label>
                         <input 
                             required 
                             type="text" 
@@ -147,7 +156,7 @@ export default function RegisterModal({ isOpen, onClose }) {
                         />
                       </div>
                       <div className="space-y-1">
-                        <label className="text-xs font-mono text-[#ffd700] uppercase tracking-widest pl-1">Last Name <span className="text-brand-red">*</span></label>
+                        <label className="text-sm font-mono text-white uppercase tracking-widest pl-1">Last Name <span className="text-brand-red">*</span></label>
                         <input 
                             required 
                             type="text" 
@@ -162,17 +171,18 @@ export default function RegisterModal({ isOpen, onClose }) {
                    
                    {/* Event Selection */}
                    <div className="space-y-1">
-                      <label className="text-xs font-mono text-[#ffd700] uppercase tracking-widest pl-1">Target Mission (Event) <span className="text-brand-red">*</span></label>
+                      <label className="text-sm font-mono text-white uppercase tracking-widest pl-1">Target Mission (Event) <span className="text-brand-red">*</span></label>
                       <div className="relative">
                         <select 
                             required
                             name="eventType"
                             value={formData.eventType}
                             onChange={handleChange}
+                            style={{ colorScheme: 'dark' }}
                             className="w-full bg-white/5 border border-brand-red/20 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-orange focus:bg-white/10 transition-all appearance-none cursor-pointer validated-input"
                         >
-                            <option value="" disabled className="bg-[#2d1018]">Select an Event</option>
-                            {eventOptions.map(evt => <option key={evt} value={evt} className="bg-[#2d1018]">{evt}</option>)}
+                            <option value="" disabled className="bg-[#050505] text-white">Select an Event</option>
+                            {eventOptions.map(evt => <option key={evt} value={evt} className="bg-[#050505] text-white hover:bg-brand-orange hover:text-black">{evt}</option>)}
                         </select>
                         <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-white/30 pointer-events-none" size={18} />
                       </div>
@@ -188,13 +198,13 @@ export default function RegisterModal({ isOpen, onClose }) {
                                 className="space-y-5 overflow-hidden"
                             >
                                 <div className="p-5 border border-brand-red border-opacity-30 bg-brand-red bg-opacity-5 rounded-xl space-y-4">
-                                    <div className="flex items-center gap-2 text-[#ffd700] mb-2">
+                                    <div className="flex items-center gap-2 text-white mb-2">
                                         <Users size={16} />
-                                        <span className="text-xs font-bold uppercase tracking-widest">Squad Details</span>
+                                        <span className="text-sm font-bold uppercase tracking-widest">Squad Details</span>
                                     </div>
                                     
                                     <div className="space-y-1">
-                                        <label className="text-xs font-mono text-[#ffd700] uppercase tracking-widest pl-1">Team Name <span className="text-red-500">*</span></label>
+                                        <label className="text-sm font-mono text-white uppercase tracking-widest pl-1">Team Name <span className="text-red-500">*</span></label>
                                         <input 
                                             required 
                                             type="text" 
@@ -209,7 +219,7 @@ export default function RegisterModal({ isOpen, onClose }) {
                                     {/* Member 2 */}
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div className="space-y-1">
-                                            <label className="text-xs font-mono text-[#ffd700] uppercase pl-1">Member 2 Name (Optional)</label>
+                                            <label className="text-sm font-mono text-white uppercase pl-1">Member 2 Name (Optional)</label>
                                             <input 
                                                 type="text" 
                                                 name="member2Name"
@@ -219,7 +229,7 @@ export default function RegisterModal({ isOpen, onClose }) {
                                             />
                                         </div>
                                          <div className="space-y-1">
-                                            <label className="text-xs font-mono text-[#ffd700] uppercase pl-1">Member 2 Email</label>
+                                            <label className="text-sm font-mono text-white uppercase pl-1">Member 2 Email (Optional)</label>
                                             <input 
                                                 type="email" 
                                                 name="member2Email"
@@ -233,7 +243,7 @@ export default function RegisterModal({ isOpen, onClose }) {
                                     {/* Member 3 */}
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div className="space-y-1">
-                                            <label className="text-xs font-mono text-[#ffd700] uppercase pl-1">Member 3 Name (Optional)</label>
+                                            <label className="text-xs font-mono text-white uppercase pl-1">Member 3 Name (Optional)</label>
                                             <input 
                                                 type="text" 
                                                 name="member3Name"
@@ -243,7 +253,7 @@ export default function RegisterModal({ isOpen, onClose }) {
                                             />
                                         </div>
                                          <div className="space-y-1">
-                                            <label className="text-xs font-mono text-[#ffd700] uppercase pl-1">Member 3 Email</label>
+                                            <label className="text-xs font-mono text-white uppercase pl-1">Member 3 Email (Optional)</label>
                                             <input 
                                                 type="email" 
                                                 name="member3Email"
@@ -260,7 +270,7 @@ export default function RegisterModal({ isOpen, onClose }) {
                    
                    {/* Standard Contact Info */}
                    <div className="space-y-1">
-                      <label className="text-xs font-mono text-[#ffd700] uppercase tracking-widest pl-1">Comms (Email) <span className="text-brand-red">*</span></label>
+                      <label className="text-xs font-mono text-white uppercase tracking-widest pl-1">Comms (Email) <span className="text-brand-red">*</span></label>
                       <input 
                           required 
                           type="email" 

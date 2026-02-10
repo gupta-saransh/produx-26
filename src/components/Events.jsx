@@ -16,7 +16,7 @@ const eventsData = [
     time: "ALL WEEK",
     location: "Campus / Online",
     description: "An immersive CXO-level simulation, where participants navigate real-world business challenges, make critical decisions, and compete for market leadership. Participants take on CXO roles, solving business challenges in a simulated environment.",
-    image: "/event_banners/1.png",
+    image: "/images/event_banners/boardroom_battleground.png",
     category: "MANAGEMENT"
   },
   {
@@ -24,10 +24,10 @@ const eventsData = [
     day: "FEB 16-22",
     date: "16-22 FEB",
     title: "TECH BRIDGE",
-    time: "ALL WEEK",
+    time: "To be announced soon",
     location: "Campus",
     description: "Digital Enablement Workshop conducted by the IT & Infrastructure Committee to enhance digital proficiency among IIM Shillong staff. A specialized workshop empowering administrative and internal staff with digital tools and automation techniques for enhanced efficiency.",
-    image: "/event_banners/2.png",
+    image: "/images/event_banners/tech_bridge.png",
     category: "WORKSHOP"
   },
   {
@@ -36,9 +36,9 @@ const eventsData = [
     date: "17 FEB",
     title: "PRECISE PROMPT",
     time: "04:00 PM - 07:00 PM",
-    location: "Lab",
+    location: "Campus / Online",
     description: "A Prompt Engineering Workshop allowing participants to master the art of communicating with AI models effectively.",
-    image: "/event_banners/3.png",
+    image: "/images/event_banners/precise_prompt.png",
     category: "WORKSHOP"
   },
   {
@@ -49,18 +49,18 @@ const eventsData = [
     time: "02:00 PM - 04:00 PM",
     location: "Campus",
     description: "A fun engagement event among IIM Shillong students designed to test wit, strategy, and teamwork.",
-    image: "/event_banners/5.png",
+    image: "/images/event_banners/bitewars.png",
     category: "ENGAGEMENT"
   },
   {
     id: 5,
     day: "FEB 18-19",
     date: "18-19 FEB",
-    title: "FigmaForge",
-    time: "07:00 PM - 09:00 PM",
-    location: "Lab",
+    title: "FIGMAFORGE",
+    time: "06:30 PM - 09:00 PM",
+    location: "Campus / Online",
     description: "A UI/UX Workshop focused on designing user-centric interfaces and mastering Figma tools.",
-    image: "/event_banners/6.png",
+    image: "/images/event_banners/figma_forge.png",
     category: "DESIGN"
   },
   {
@@ -69,9 +69,9 @@ const eventsData = [
     date: "20 FEB",
     title: "VIRTUSPHERE",
     time: "11:00 AM ONWARDS",
-    location: "Atrium",
+    location: "NAB",
     description: "An engaging Virtual Reality experience for the IIM Shillong community, offering participants a first-hand look at cutting-edge immersive technology.",
-    image: "/event_banners/7.png",
+    image: "/images/event_banners/produx.png",
     category: "EXPERIENCE"
   },
   {
@@ -82,7 +82,7 @@ const eventsData = [
     time: "10:00 AM - 04:00 PM",
     location: "Auditorium",
     description: "An investor-led hands-on workshop to articulate students with pitching and building business models for tech startups. The event aims to strengthen participants’ ability to pitch technology products with clarity and confidence, while building understanding of business models and investor expectations.",
-    image: "/event_banners/8.png",
+    image: "/images/event_banners/produx.png",
     category: "STARTUP"
   },
   {
@@ -91,9 +91,9 @@ const eventsData = [
     date: "22 FEB",
     title: "bITeCAST",
     time: "10:00 AM - 12:00 PM",
-    location: "Grand Hall",
+    location: "Auditorium",
     description: "A dynamic, podcast-style discussion with industry leaders, exploring the intersection of technology, business strategy, and innovation.",
-    image: "/event_banners/1.png",
+    image: "/images/event_banners/bitecast.png",
     category: "TALK SHOW"
   },
   {
@@ -102,9 +102,9 @@ const eventsData = [
     date: "22 FEB",
     title: "PRODUCT PIONEERS",
     time: "04:00 PM - 06:00 PM",
-    location: "Auditorium",
+    location: "Online",
     description: "An exclusive career insight session with a Senior Product Manager, providing insights on breaking into Product Management, career growth, and industry best practices.",
-    image: "/event_banners/2.png",
+    image: "/images/event_banners/product_pioneers.png",
     category: "SPEAKER SESSION"
   }
 ];
@@ -128,6 +128,7 @@ const GlitchText = ({ text, className }) => {
 const EventCard = ({ event, index, onRegister }) => {
   const isEven = index % 2 === 0;
   const [isInView, setIsInView] = useState(false);
+  const noRegisterList = ["TECH BRIDGE", "VIRTUSPHERE", "bITeCAST", "PRODUCT PIONEERS"];
   
   return (
     <motion.div
@@ -137,18 +138,31 @@ const EventCard = ({ event, index, onRegister }) => {
       onViewportLeave={() => setIsInView(false)}
       viewport={{ margin: "-200px" }}
       transition={{ duration: 0.4, delay: index * 0.1 }}
-      className={`flex flex-col md:flex-row items-center gap-8 md:gap-16 w-full ${
+      className={`relative flex flex-col md:flex-row items-center w-full pl-8 md:pl-0 ${
         isEven ? "md:flex-row-reverse" : ""
       }`}
     >
       {/* Date/Time Node (Mobile Only) */}
-      <div className="md:hidden flex items-center gap-2 text-brand-orange font-mono text-sm px-4 py-1 border border-brand-orange/30 rounded bg-brand-orange/5">
+      <div className="md:hidden flex items-center gap-2 text-brand-orange font-mono text-sm px-4 py-1 border border-brand-orange/30 rounded bg-brand-orange/5 mb-4">
         <Calendar size={14} />
         {event.date}
       </div>
 
+      {/* Center Node / Dot (Desktop Absolute) */}
+      <div className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center z-20">
+         {/* The Node Dot */}
+         <div className={`w-4 h-4 rounded-full border-2 border-brand-orange relative z-10 transition-all duration-500 ${
+           isInView ? 'bg-brand-orange scale-125 shadow-[0_0_20px_#ff6600,0_0_40px_#ff6600]' : 'bg-black shadow-none'
+         }`}>
+            {isInView && <div className="absolute inset-0 rounded-full bg-brand-orange animate-ping opacity-40" />}
+         </div>
+      </div>
+
+      {/* Connector Line Logic - Horizontal lines from center to content */}
+      <div className={`hidden md:block absolute top-1/2 h-[1px] bg-brand-orange/30 z-0 ${isEven ? 'right-1/2 w-[8%] mr-4' : 'left-1/2 w-[8%] ml-4'}`} />
+
       {/* Image Side */}
-      <div className="w-full md:w-5/12 group relative">
+      <div className={`w-full md:w-1/2 group relative ${isEven ? 'md:pl-16' : 'md:pr-16'}`}>
         <div className="relative overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm">
           {/* Tech Corners */}
           <div className="absolute top-0 left-0 w-8 h-8 border-t border-l border-brand-orange/50 z-20" />
@@ -165,24 +179,12 @@ const EventCard = ({ event, index, onRegister }) => {
         </div>
       </div>
 
-      {/* Center Node (Desktop) */}
-      <div className="hidden md:flex flex-col items-center justify-center w-2/12 relative h-full min-h-[100px]">
-         {/* The Node Dot */}
-         <div className={`w-4 h-4 rounded-full border-2 border-brand-orange relative z-10 transition-all duration-500 ${
-           isInView ? 'bg-brand-orange scale-125 shadow-[0_0_20px_#ff6600,0_0_40px_#ff6600]' : 'bg-black shadow-none'
-         }`}>
-            {isInView && <div className="absolute inset-0 rounded-full bg-brand-orange animate-ping opacity-40" />}
-         </div>
-         {/* Connecting Line from Dot to Content */}
-         <div className={`absolute top-1/2 h-[1px] bg-brand-orange/30 w-full z-0 ${isEven ? 'right-1/2 origin-right' : 'left-1/2 origin-left'}`} />
-      </div>
-
       {/* Content Side */}
-      <div className={`w-full md:w-5/12 text-center ${isEven ? 'md:text-right' : 'md:text-left'}`}>
+      <div className={`w-full md:w-1/2 text-center ${isEven ? 'md:text-right md:pr-16' : 'md:text-left md:pl-16'}`}>
         <div className="space-y-4">
-            <div className={`flex items-center gap-3 text-brand-orange/60 font-mono text-xs tracking-widest ${isEven ? 'md:justify-end justify-center' : 'md:justify-start justify-center'}`}>
+            <div className={`flex items-center gap-3 text-brand-orange font-mono text-sm tracking-widest ${isEven ? 'md:justify-end justify-center' : 'md:justify-start justify-center'}`}>
                 <span>{event.category}</span>
-                <span className="w-4 h-[1px] bg-brand-orange/40" />
+                <span className="w-4 h-[2px] bg-brand-orange" />
                 <span>{event.day}</span>
             </div>
 
@@ -199,13 +201,15 @@ const EventCard = ({ event, index, onRegister }) => {
                 {event.description}
             </p>
 
-            <button 
-                onClick={onRegister}
-                className="group inline-flex items-center gap-2 px-6 py-2 bg-white/5 border border-white/10 hover:border-brand-orange hover:bg-brand-orange/10 transition-all duration-300 rounded font-mono text-xs tracking-widest uppercase mt-2"
-            >
-                <span>Register</span>
-                <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform text-brand-orange" />
-            </button>
+            {!noRegisterList.includes(event.title) && (
+              <button 
+                  onClick={() => onRegister(event.title)}
+                  className="group inline-flex items-center gap-2 px-8 py-3 bg-white/5 border border-white/10 hover:border-brand-orange hover:bg-brand-orange/10 transition-all duration-300 rounded font-mono text-sm tracking-widest uppercase mt-4"
+              >
+                  <span className="font-bold">REGISTER</span>
+                  <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform text-brand-orange" />
+              </button>
+            )}
         </div>
       </div>
 
@@ -215,6 +219,7 @@ const EventCard = ({ event, index, onRegister }) => {
 
 export default function Events() {
   const [registerOpen, setRegisterOpen] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState("");
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -244,10 +249,10 @@ export default function Events() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
             >
-                <h1 className="text-5xl md:text-8xl font-black font-pixel text-transparent bg-clip-text bg-gradient-to-b from-white to-white/10 mb-6">
-                    EVENT TIMELINE
+                <h1 className="text-5xl md:text-7xl font-bold mb-6 font-tech tracking-widest">
+                    EVENT <span className="text-transparent bg-clip-text bg-[linear-gradient(to_right,#c20023,#ff6600,#fffb00)] drop-shadow-lg pb-2">TIMELINE</span>
                 </h1>
-                <p className="text-white/50 font-mono tracking-widest text-sm md:text-base max-w-xl mx-auto">
+                <p className="text-xl text-white/50 max-w-2xl mx-auto">
                     The path to the next era of growth...
                 </p>
             </motion.div>
@@ -271,7 +276,10 @@ export default function Events() {
                         key={evt.id} 
                         event={evt} 
                         index={idx}
-                        onRegister={() => setRegisterOpen(true)}
+                        onRegister={(title) => {
+                            setSelectedEvent(title);
+                            setRegisterOpen(true);
+                        }}
                     />
                 ))}
             </div>
@@ -287,7 +295,11 @@ export default function Events() {
         </div>
 
         <Footer />
-        <RegisterModal isOpen={registerOpen} onClose={() => setRegisterOpen(false)} />
+        <RegisterModal 
+            isOpen={registerOpen} 
+            onClose={() => setRegisterOpen(false)} 
+            selectedEvent={selectedEvent}
+        />
     </div>
   );
 }
