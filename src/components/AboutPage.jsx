@@ -53,7 +53,7 @@ export default function AboutPage() {
           >
             <div className="w-10 h-[3px] bg-orange-500 mb-6" />
             <h2 className="text-3xl md:text-4xl font-bold font-tech mb-6">What is ProdUX?</h2>
-            <p className="text-lg md:text-xl leading-relaxed text-white/70">
+            <p className="text-lg md:text-xl leading-relaxed text-white/70 text-justify">
               <span className="text-orange-400 font-medium">ProdUX</span> is the flagship Business & Technology Fest by{' '}
               <span className="text-white font-medium">bITeSys, IIM Shillong</span> — a platform at the intersection of technology, strategy, and innovation. Over the years it has grown into a premier event, uniting students, industry leaders, and entrepreneurs to discuss emerging trends, tackle real-world challenges, and shape the future of business and technology.
             </p>
@@ -102,7 +102,7 @@ export default function AboutPage() {
           >
             <p className="text-xs font-mono tracking-[0.3em] text-orange-400 uppercase mb-3">Revisiting</p>
             <h3 className="text-3xl md:text-4xl font-bold font-tech mb-5">ProdUX'25</h3>
-            <p className="text-base md:text-lg leading-relaxed text-white/60">
+            <p className="text-base md:text-lg leading-relaxed text-white/60 text-justify">
               Themed <span className="text-white italic">"Business Beyond Boundaries"</span>, ProdUX 2025 explored how AI, IoT, and blockchain are reshaping industries — through panel discussions, business simulations, workshops, and venture clashes. It featured a <span className="text-orange-400">bITeCast session</span> with Mr. Arun Sreelalan Iyer from Quantrium and <span className="text-orange-400">Product Pioneers</span> with Mr. Vinod Kumar Subramaniam from Google.
             </p>
           </motion.div>
@@ -137,7 +137,7 @@ export default function AboutPage() {
             <p className="text-xs font-mono tracking-[0.3em] text-orange-400 uppercase mb-3">Coming Up</p>
             <h3 className="text-3xl md:text-4xl font-bold font-tech mb-3">ProdUX'26</h3>
             <p className="text-xl italic text-orange-400 mb-5">"Designing the Next Era of Growth"</p>
-            <p className="text-base md:text-lg leading-relaxed text-white/60 mb-6">
+            <p className="text-base md:text-lg leading-relaxed text-white/60 mb-6 text-justify">
               Exploring how modern organisations design sustainable growth through data-led decision-making, customer-centric product thinking, and agile execution.
             </p>
             <ul className="space-y-2">
@@ -158,29 +158,6 @@ export default function AboutPage() {
           </motion.div>
         </div>
       </section>
-
-      {/* ──────────── EVENTS MARQUEE ──────────── */}
-      <Link to="/events" className="block py-8 overflow-hidden bg-white/[0.15] hover:bg-white/[0.2] transition-all cursor-pointer relative">
-        {/* Top line */}
-        <div className="absolute top-0 left-0 right-0 h-[2px] bg-white/30"></div>
-        {/* Bottom line */}
-        <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-white/30"></div>
-        
-        <motion.div
-          className="flex gap-8 whitespace-nowrap"
-          animate={{ x: ['0%', '-50%'] }}
-          transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
-        >
-          {[...events2026, ...events2026].map((ev, i) => (
-            <span
-              key={i}
-              className="text-base md:text-lg font-mono font-semibold text-white/50 tracking-wider"
-            >
-              {ev.title}
-            </span>
-          ))}
-        </motion.div>
-      </Link>
 
       {/* ──────────── PARTNERS ──────────── */}
       <section className="max-w-4xl mx-auto px-6 md:px-8 py-20 md:py-28 text-center">

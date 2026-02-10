@@ -33,7 +33,7 @@ if (typeof window !== "undefined") {
       provider: new ReCaptchaV3Provider(import.meta.env.VITE_RECAPTCHA_SITE_KEY),
       isTokenAutoRefreshEnabled: true
     });
-    console.log("App Check initialized");
+    // console.log("App Check initialized");
   } catch (e) {
     console.error("App Check failed to initialize:", e);
   }

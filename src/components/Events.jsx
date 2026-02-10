@@ -98,14 +98,14 @@ const eventsData = [
   },
   {
     id: 9,
-    day: "FEB 22",
-    date: "22 FEB",
+    day: "FEB 18",
+    date: "18 FEB",
     title: "PRODUCT PIONEERS",
-    time: "04:00 PM - 06:00 PM",
-    location: "Online",
-    description: "An exclusive career insight session with a Senior Product Manager, providing insights on breaking into Product Management, career growth, and industry best practices.",
-    image: "/images/event_banners/product_pioneers.png",
-    category: "SPEAKER SESSION"
+    time: "To be announced",
+    location: "Campus",
+    description: "A premier product management competition challenging participants to design innovative solutions for real-world problems. Show off your product thinking and strategy.",
+    image: "/images/event_banners/produx.png",
+    category: "COMPETITION"
   }
 ];
 
@@ -128,7 +128,7 @@ const GlitchText = ({ text, className }) => {
 const EventCard = ({ event, index, onRegister }) => {
   const isEven = index % 2 === 0;
   const [isInView, setIsInView] = useState(false);
-  const noRegisterList = ["TECH BRIDGE", "VIRTUSPHERE", "bITeCAST", "PRODUCT PIONEERS"];
+  const noRegisterList = ["TECH BRIDGE", "VIRTUSPHERE", "bITeCAST"];
   
   return (
     <motion.div
@@ -197,14 +197,19 @@ const EventCard = ({ event, index, onRegister }) => {
                 <span className="flex items-center gap-2 text-brand-orange"><MapPin size={14} /> {event.location}</span>
             </div>
 
-            <p className="text-gray-400 font-light text-sm max-w-md mx-auto md:mx-0">
+            {/* DESCRIPTION TEXT FIX: Use text-right for right-aligned items (isEven=true) and text-left for left-aligned items (isEven=false). 
+                Keep justify-center for mobile. 
+                Previously it forced auto margins which caused the "move too much to left" issue. 
+                Now we explicitly align text. 
+            */}
+            <p className={`text-gray-400 font-light text-sm max-w-md ${isEven ? 'md:ml-auto md:text-right' : 'md:mr-auto md:text-left'} mx-auto text-center`}>
                 {event.description}
             </p>
 
             {!noRegisterList.includes(event.title) && (
               <button 
                   onClick={() => onRegister(event.title)}
-                  className="group inline-flex items-center gap-2 px-8 py-3 bg-white/5 border border-white/10 hover:border-brand-orange hover:bg-brand-orange/10 transition-all duration-300 rounded font-mono text-sm tracking-widest uppercase mt-4"
+                  className={`group inline-flex items-center gap-2 px-8 py-3 bg-white/5 border border-white/10 hover:border-brand-orange hover:bg-brand-orange/10 transition-all duration-300 rounded font-mono text-sm tracking-widest uppercase mt-4 ${isEven ? 'ml-auto' : 'mr-auto'}`}
               >
                   <span className="font-bold">REGISTER</span>
                   <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform text-brand-orange" />

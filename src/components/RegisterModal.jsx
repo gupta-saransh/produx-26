@@ -1,20 +1,35 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ChevronDown, Users, User, Rocket } from 'lucide-react';
+import { X, ChevronDown, Users, User, Rocket, CheckCircle } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { ref, push } from 'firebase/database';
 import { db } from '../firebase';
+import { useGoogleReCaptcha, GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 
 export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
+  if (!isOpen) return null;
+
+  return (
+      <GoogleReCaptchaProvider reCaptchaKey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}>
+          <RegisterModalContent isOpen={isOpen} onClose={onClose} selectedEvent={selectedEvent} />
+      </GoogleReCaptchaProvider>
+  );
+}
+
+function RegisterModalContent({ isOpen, onClose, selectedEvent }) {
+  const { executeRecaptcha } = useGoogleReCaptcha();
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
+    mobileNumber: '',
     eventType: selectedEvent || '',
     teamName: '',
     member2Name: '',
     member2Email: '',
+    member2Phone: '',
     member3Name: '',
     member3Email: '',
+    member3Phone: '',
     email: ''
   });
   
@@ -22,6 +37,7 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
 
   
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   useEffect(() => {
     if (selectedEvent) {
@@ -34,7 +50,8 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
     "PRECISE PROMPT",
     "FIGMAFORGE",
     "BOARDROOM BATTLEGROUND",
-    "bITeWARS"
+    "bITeWARS",
+    "PRODUCT PIONEERS"
   ];
 
   const teamEvents = ["BOARDROOM BATTLEGROUND", "bITeWARS"];
@@ -53,38 +70,54 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
     setIsSubmitting(true);
 
     try {
+      if (!executeRecaptcha) {
+        console.error("ReCAPTCHA hook not ready");
+        alert("Security service is initializing. Please wait a moment and try again.");
+        setIsSubmitting(false);
+        return;
+      }
+
+      const token = await executeRecaptcha('registration_submit');
+      if (!token) {
+        alert("Security check failed. Please refresh and try again.");
+        setIsSubmitting(false);
+        return;
+      }
+      
       // Validate Logic (Basic)
       if (isTeamEvent && !formData.teamName) {
         alert("Team Name is required for this event.");
         setIsSubmitting(false);
         return;
       }
-
-      // Email validation for IIM Shillong domain
-      if (!formData.email.endsWith('@iimshillong.ac.in')) {
-        alert("Please use your IIM Shillong email address (@iimshillong.ac.in)");
+      
+      // Basic Email Validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(formData.email)) {
+        alert("Please enter a valid email address.");
         setIsSubmitting(false);
         return;
       }
 
       // Validate team member emails for team events
       if (isTeamEvent) {
-        if (formData.member2Email && !formData.member2Email.endsWith('@iimshillong.ac.in')) {
-          alert("Member 2 email must be an IIM Shillong email address (@iimshillong.ac.in)");
-          setIsSubmitting(false);
-          return;
-        }
-        if (formData.member3Email && !formData.member3Email.endsWith('@iimshillong.ac.in')) {
-          alert("Member 3 email must be an IIM Shillong email address (@iimshillong.ac.in)");
-          setIsSubmitting(false);
-          return;
-        }
+         if (formData.member2Email && !emailRegex.test(formData.member2Email)) {
+             alert("Please enter a valid email for Member 2.");
+             setIsSubmitting(false);
+             return;
+         }
+         if (formData.member3Email && !emailRegex.test(formData.member3Email)) {
+             alert("Please enter a valid email for Member 3.");
+             setIsSubmitting(false);
+             return;
+         }
       }
 
       // Safe Data Construction
       const submissionData = {
         firstName: formData.firstName,
         lastName: formData.lastName,
+        mobileNumber: formData.mobileNumber,
         eventType: formData.eventType,
         email: formData.email,
         timestamp: new Date().toISOString()
@@ -94,38 +127,49 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
         submissionData.teamName = formData.teamName;
         submissionData.member2Name = formData.member2Name;
         submissionData.member2Email = formData.member2Email;
+        submissionData.member2Phone = formData.member2Phone;
         submissionData.member3Name = formData.member3Name;
         submissionData.member3Email = formData.member3Email;
+        submissionData.member3Phone = formData.member3Phone;
       }
 
       // Push to Firebase
       const registrationsRef = ref(db, 'registrations');
       await push(registrationsRef, submissionData);
 
-      alert("Registration Successful!");
-      onClose();
-      // Reset Form
-      setFormData({
-        firstName: '',
-        lastName: '',
-        eventType: '',
-        teamName: '',
-        member2Name: '',
-        member2Email: '',
-        member3Name: '',
-        member3Email: '',
-        email: ''
-      });
+      setIsSuccess(true);
+      setIsSubmitting(false);
 
     } catch (error) {
       console.error("Error submitting registration:", error);
-      alert("Registration failed. Please try again later.");
-    } finally {
+      alert("Something went wrong. Please try again.");
       setIsSubmitting(false);
     }
   };
 
-  if (!isOpen) return null;
+  const handleCloseModal = () => {
+    onClose();
+    setTimeout(() => {
+        setIsSuccess(false);
+         setFormData({
+            firstName: '',
+            lastName: '',
+            mobileNumber: '',
+            eventType: '',
+            teamName: '',
+            member2Name: '',
+            member2Email: '',
+            member2Phone: '',
+            member3Name: '',
+            member3Email: '',
+            member3Phone: '',
+            email: ''
+        });
+    }, 500);
+  };
+
+  
+  // if (!isOpen) return null; // MOVED TO OUTER COMPONENT
 
   return createPortal(
     <AnimatePresence>
@@ -145,7 +189,7 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.95, opacity: 0, filter: "blur(10px)" }}
             transition={{ type: "spring", duration: 0.6, bounce: 0.3 }}
-            className="relative bg-[#050505] border-2 border-brand-red/50 w-full max-w-2xl rounded-3xl p-8 md:p-10 shadow-[0_0_50px_rgba(194,0,35,0.3)] overflow-hidden max-h-[90vh] overflow-y-auto"
+            className={`relative bg-[#050505] border-2 border-brand-red/50 w-full max-w-2xl rounded-3xl p-8 md:p-10 shadow-[0_0_50px_rgba(194,0,35,0.3)] overflow-hidden max-h-[90vh] ${isSuccess ? '' : 'overflow-y-auto'}`}
           >
              <button
               onClick={onClose}
@@ -154,8 +198,32 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
               <X size={24} />
             </button> 
 
-            {/* Form Content */}
-             <div className="relative z-10">
+            {/* Form Content */}             {isSuccess ? (
+                <motion.div 
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="relative z-10 flex flex-col items-center justify-center text-center py-12"
+                >
+                    <div className="w-20 h-20 rounded-full bg-gradient-to-r from-brand-red to-brand-orange flex items-center justify-center mb-6 shadow-[0_0_20px_rgba(255,102,0,0.5)]">
+                        <CheckCircle size={40} className="text-white" />
+                    </div>
+                    <h2 className="text-3xl font-bold mb-2 text-white font-tech tracking-widest">
+                        REGISTRATION COMPLETE
+                    </h2>
+                    <p className="text-xl text-brand-yellow font-bold mb-2 font-mono">
+                        {formData.firstName} {formData.lastName}
+                    </p>
+                    <p className="text-white/60 mb-8 max-w-xs mx-auto">
+                        Your spot for <span className="text-brand-orange">{formData.eventType}</span> has been confirmed.
+                    </p>
+                    <button 
+                        onClick={handleCloseModal}
+                        className="px-8 py-3 bg-white/10 border border-white/20 hover:border-brand-orange hover:bg-brand-orange hover:text-black rounded text-white font-mono uppercase tracking-widest text-sm transition-all duration-300"
+                    >
+                        Close
+                    </button>
+                </motion.div>
+             ) : (             <div className="relative z-10">
                 <h2 className="text-4xl font-bold mb-2 text-transparent bg-clip-text bg-[linear-gradient(to_right,#c20023,#ff6600,#fffb00)] drop-shadow-lg pb-1">
                     Mission Registration
                 </h2>
@@ -238,8 +306,8 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
                                     </div>
 
                                     {/* Member 2 */}
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <div className="space-y-1">
+                                    <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
+                                        <div className="md:col-span-4 space-y-1">
                                             <label className="text-sm font-mono text-white uppercase pl-1">Member 2 Name (Optional)</label>
                                             <input 
                                                 type="text" 
@@ -249,7 +317,7 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
                                                 className="w-full bg-black/20 border border-white/10 rounded-xl px-3 py-2 text-white text-sm focus:outline-none focus:border-brand-red border-opacity-50 transition-all" 
                                             />
                                         </div>
-                                         <div className="space-y-1">
+                                         <div className="md:col-span-4 space-y-1">
                                             <label className="text-sm font-mono text-white uppercase pl-1">Member 2 Email (Optional)</label>
                                             <input 
                                                 type="email" 
@@ -259,11 +327,21 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
                                                 className="w-full bg-black/20 border border-white/10 rounded-xl px-3 py-2 text-white text-sm focus:outline-none focus:border-brand-red border-opacity-50 transition-all" 
                                             />
                                         </div>
+                                        <div className="md:col-span-4 space-y-1">
+                                            <label className="text-sm font-mono text-white uppercase pl-1">Member 2 Phone (Optional)</label>
+                                            <input 
+                                                type="tel" 
+                                                name="member2Phone"
+                                                value={formData.member2Phone}
+                                                onChange={handleChange}
+                                                className="w-full bg-black/20 border border-white/10 rounded-xl px-3 py-2 text-white text-sm focus:outline-none focus:border-brand-red border-opacity-50 transition-all" 
+                                            />
+                                        </div>
                                     </div>
 
                                     {/* Member 3 */}
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <div className="space-y-1">
+                                    <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
+                                        <div className="md:col-span-4 space-y-1">
                                             <label className="text-xs font-mono text-white uppercase pl-1">Member 3 Name (Optional)</label>
                                             <input 
                                                 type="text" 
@@ -273,12 +351,22 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
                                                 className="w-full bg-black/20 border border-white/10 rounded-xl px-3 py-2 text-white text-sm focus:outline-none focus:border-brand-red border-opacity-50 transition-all" 
                                             />
                                         </div>
-                                         <div className="space-y-1">
+                                         <div className="md:col-span-4 space-y-1">
                                             <label className="text-xs font-mono text-white uppercase pl-1">Member 3 Email (Optional)</label>
                                             <input 
                                                 type="email" 
                                                 name="member3Email"
                                                 value={formData.member3Email}
+                                                onChange={handleChange}
+                                                className="w-full bg-black/20 border border-white/10 rounded-xl px-3 py-2 text-white text-sm focus:outline-none focus:border-brand-red border-opacity-50 transition-all" 
+                                            />
+                                        </div>
+                                        <div className="md:col-span-4 space-y-1">
+                                            <label className="text-xs font-mono text-white uppercase pl-1">Member 3 Phone (Optional)</label>
+                                            <input 
+                                                type="tel" 
+                                                name="member3Phone"
+                                                value={formData.member3Phone}
                                                 onChange={handleChange}
                                                 className="w-full bg-black/20 border border-white/10 rounded-xl px-3 py-2 text-white text-sm focus:outline-none focus:border-brand-red border-opacity-50 transition-all" 
                                             />
@@ -290,17 +378,31 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
                    </AnimatePresence>
                    
                    {/* Standard Contact Info */}
-                   <div className="space-y-1">
-                      <label className="text-xs font-mono text-white uppercase tracking-widest pl-1">Comms (Email) <span className="text-brand-red">*</span></label>
-                      <input 
-                          required 
-                          type="email" 
-                          name="email"
-                          value={formData.email}
-                          onChange={handleChange}
-                          className="w-full bg-white/5 border border-brand-red/20 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-orange focus:bg-white/10 transition-all placeholder:text-white/30 validated-input" 
-                          placeholder="neo@iimshillong.ac.in" 
-                      />
+                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                       <div className="space-y-1">
+                          <label className="text-xs font-mono text-white uppercase tracking-widest pl-1">Email <span className="text-brand-red">*</span></label>
+                          <input 
+                              required 
+                              type="email" 
+                              name="email"
+                              value={formData.email}
+                              onChange={handleChange}
+                              className="w-full bg-white/5 border border-brand-red/20 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-orange focus:bg-white/10 transition-all placeholder:text-white/30 validated-input" 
+                              placeholder="neo@matrix.com" 
+                          />
+                       </div>
+                       <div className="space-y-1">
+                          <label className="text-xs font-mono text-white uppercase tracking-widest pl-1">Mobile (WhatsApp) <span className="text-brand-red">*</span></label>
+                          <input 
+                              required 
+                              type="tel" 
+                              name="mobileNumber"
+                              value={formData.mobileNumber}
+                              onChange={handleChange}
+                              className="w-full bg-white/5 border border-brand-red/20 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-orange focus:bg-white/10 transition-all placeholder:text-white/30 validated-input" 
+                              placeholder="+91 98765 43210" 
+                          />
+                       </div>
                    </div>
                    
                    <div className="pt-4">
@@ -316,6 +418,7 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
                    </div>
                 </form>
              </div>
+             )}
              
              {/* Decorative Background Elements */}
               <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-red/15 rounded-full blur-[120px] -mr-32 -mt-32 pointer-events-none" />
