@@ -13,30 +13,30 @@ const eventsData = [
     day: "FEB 16-22",
     date: "16-22 FEB",
     title: "BOARDROOM BATTLEGROUND",
-    time: "ALL WEEK",
-    location: "Campus / Online",
+    time: "To be announced soon",
+    location: "Online",
     description: "An immersive CXO-level simulation, where participants navigate real-world business challenges, make critical decisions, and compete for market leadership. Participants take on CXO roles, solving business challenges in a simulated environment.",
     image: "/images/event_banners/boardroom_battleground.png",
     category: "MANAGEMENT"
   },
   {
     id: 2,
-    day: "FEB 16-22",
-    date: "16-22 FEB",
-    title: "TECH BRIDGE",
+    day: "FEB 16",
+    date: "16 FEB",
+    title: "VIRTUOSPHERE",
     time: "To be announced soon",
     location: "Campus",
-    description: "Digital Enablement Workshop conducted by the IT & Infrastructure Committee to enhance digital proficiency among IIM Shillong staff. A specialized workshop empowering administrative and internal staff with digital tools and automation techniques for enhanced efficiency.",
-    image: "/images/event_banners/tech_bridge.png",
-    category: "WORKSHOP"
+    description: "An engaging Virtual Reality experience for the IIM Shillong community, offering participants a first-hand look at cutting-edge immersive technology.",
+    image: "/images/event_banners/virtuosphere.png",
+    category: "EXPERIENCE"
   },
   {
     id: 3,
     day: "FEB 17",
     date: "17 FEB",
     title: "PRECISE PROMPT",
-    time: "04:00 PM - 07:00 PM",
-    location: "Campus / Online",
+    time: "To be announced soon",
+    location: "Online",
     description: "A Prompt Engineering Workshop allowing participants to master the art of communicating with AI models effectively.",
     image: "/images/event_banners/precise_prompt.png",
     category: "WORKSHOP"
@@ -45,67 +45,67 @@ const eventsData = [
     id: 4,
     day: "FEB 18",
     date: "18 FEB",
-    title: "bITeWARS",
-    time: "02:00 PM - 04:00 PM",
-    location: "Campus",
-    description: "A fun engagement event among IIM Shillong students designed to test wit, strategy, and teamwork.",
-    image: "/images/event_banners/bitewars.png",
-    category: "ENGAGEMENT"
-  },
-  {
-    id: 5,
-    day: "FEB 18-19",
-    date: "18-19 FEB",
-    title: "FIGMAFORGE",
-    time: "06:30 PM - 09:00 PM",
-    location: "Campus / Online",
+    title: "FIGMA FORGE",
+    time: "To be announced soon",
+    location: "Online",
     description: "A UI/UX Workshop focused on designing user-centric interfaces and mastering Figma tools.",
     image: "/images/event_banners/figma_forge.png",
     category: "DESIGN"
   },
   {
-    id: 6,
-    day: "FEB 20",
-    date: "20 FEB",
-    title: "VIRTUOSPHERE",
-    time: "11:00 AM ONWARDS",
+    id: 5,
+    day: "FEB 18",
+    date: "18 FEB",
+    title: "bITeWARS",
+    time: "To be announced soon",
     location: "NAB",
-    description: "An engaging Virtual Reality experience for the IIM Shillong community, offering participants a first-hand look at cutting-edge immersive technology.",
-    image: "/images/event_banners/virtuosphere.png",
-    category: "EXPERIENCE"
+    description: "A fun engagement event among IIM Shillong students designed to test wit, strategy, and teamwork.",
+    image: "/images/event_banners/bitewars.png",
+    category: "ENGAGEMENT"
   },
   {
-    id: 7,
+    id: 6,
     day: "FEB 21",
     date: "21 FEB",
     title: "TECHVENTURES",
-    time: "10:00 AM - 04:00 PM",
-    location: "Auditorium",
-    description: "An investor-led hands-on workshop to articulate students with pitching and building business models for tech startups. The event aims to strengthen participants’ ability to pitch technology products with clarity and confidence, while building understanding of business models and investor expectations.",
+    time: "To be announced soon",
+    location: "NAB",
+    description: "An investor-led hands-on workshop to articulate students with pitching and building business models for tech startups. The event aims to strengthen participants' ability to pitch technology products with clarity and confidence, while building understanding of business models and investor expectations.",
     image: "/images/event_banners/tech_ventures.png",
     category: "STARTUP"
   },
   {
-    id: 8,
+    id: 7,
     day: "FEB 22",
     date: "22 FEB",
     title: "bITeCAST",
-    time: "10:00 AM - 12:00 PM",
+    time: "To be announced soon",
     location: "Auditorium",
     description: "A dynamic, podcast-style discussion with industry leaders, exploring the intersection of technology, business strategy, and innovation.",
     image: "/images/event_banners/bitecast.png",
     category: "TALK SHOW"
   },
   {
-    id: 9,
-    day: "FEB 18",
-    date: "18 FEB",
+    id: 8,
+    day: "FEB 22",
+    date: "22 FEB",
     title: "PRODUCT PIONEERS",
-    time: "To be announced",
-    location: "Campus",
+    time: "To be announced soon",
+    location: "Online",
     description: "A premier product management competition challenging participants to design innovative solutions for real-world problems. Show off your product thinking and strategy.",
     image: "/images/event_banners/produx.png",
-    category: "COMPETITION"
+    category: "Knowledge Session"
+  },
+  {
+    id: 9,
+    day: "FEB 19",
+    date: "19 FEB",
+    title: "TECH BRIDGE",
+    time: "To be announced soon",
+    location: "Campus",
+    description: "Digital Enablement Workshop conducted by the IT & Infrastructure Committee to enhance digital proficiency among IIM Shillong staff. A specialized workshop empowering administrative and internal staff with digital tools and automation techniques for enhanced efficiency.",
+    image: "/images/event_banners/tech_bridge.png",
+    category: "WORKSHOP"
   }
 ];
 
@@ -128,7 +128,7 @@ const GlitchText = ({ text, className }) => {
 const EventCard = ({ event, index, onRegister }) => {
   const isEven = index % 2 === 0;
   const [isInView, setIsInView] = useState(false);
-  const noRegisterList = ["TECH BRIDGE", "VIRTUSOPHERE", "bITeCAST"];
+  const noRegisterList = ["TECH BRIDGE", "VIRTUSOPHERE", "bITeCAST", "PRODUCT PIONEERS"];
   
   return (
     <motion.div

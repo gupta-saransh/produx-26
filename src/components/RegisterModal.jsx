@@ -42,8 +42,7 @@ export default function RegisterModal({ isOpen, onClose, selectedEvent }) {
     "Precise Prompt",
     "Figma Forge",
     "Boardroom Battleground",
-    "bITeWars",
-    "Product Pioneers"
+    "bITeWars"
   ];
 
   const teamEvents = ["Boardroom Battleground", "bITeWars"];

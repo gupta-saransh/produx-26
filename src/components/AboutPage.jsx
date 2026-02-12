@@ -8,7 +8,7 @@ const events2026 = [
   { title: 'TECH BRIDGE', date: 'FEB 16-22', category: 'WORKSHOP', color: '#EA912D' },
   { title: 'PRECISE PROMPT', date: 'FEB 17', category: 'WORKSHOP', color: '#FFD700' },
   { title: 'bITeWARS', date: 'FEB 18', category: 'ENGAGEMENT', color: '#c20023' },
-  { title: 'FIGMAFORGE', date: 'FEB 18-19', category: 'DESIGN', color: '#EA912D' },
+  { title: 'FIGMA FORGE', date: 'FEB 18-19', category: 'DESIGN', color: '#EA912D' },
   { title: 'VIRTUOSPHERE', date: 'FEB 20', category: 'EXPERIENCE', color: '#FFD700' },
   { title: 'TECHVENTURES', date: 'FEB 21', category: 'STARTUP', color: '#c20023' },
   { title: 'bITeCAST', date: 'FEB 22', category: 'TALK SHOW', color: '#EA912D' },
